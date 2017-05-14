@@ -19,7 +19,7 @@ var routes = require('./our_modules/routes');
 //EXPRESS() AND CONFIGURATION
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({uploadDir:'./tmpUpload'}));    //SET TEMPORARY UPLOAD FOLDER FILE
+app.use(bodyParser.json());    //SET TEMPORARY UPLOAD FOLDER FILE
 app.use(express.static('public'));  //SET THE PUBLIC FOLDER FOR IMPORT
 app.use('/', routes);   //ACTIVATING ROUTING
 
