@@ -1,8 +1,13 @@
 angular.module('boggiApp')
+
 		.controller('userShowController', function($scope, $stateParams, $http){
+			$scope.date= new Date();
+			 $scope.birthday=1;
+			 $scope.gift=1;
 		   $scope.done = false;
 		   $scope.types = [];
 			 $scope.prices = [];
+		   $scope.infos = [];
 		   $scope.parseDate = function(date){
 		       var ms = parseInt(date.slice(6, 19), 10);
 		       var parsedDate = new Date(ms);
@@ -15,13 +20,44 @@ angular.module('boggiApp')
 		       var str = parsedDate.toDateString();
 		       return str;
 		   }
+
+
 		   $http({
                 method: 'GET',
                 url: '/api/v1/user/' + $stateParams.userEmail,
             }).then(function(response) {
-                console.log(response);
+								$scope.size=[];
                 $scope.done = true;
+								$scope.OrderDate=new Date(0);
                 $scope.data = response.data;
+								console.log((new Date(response.data.DemandwareCustomer.Birthday)).getMonth());
+								if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
+									$scope.birthday=0;
+								}
+								for(var order in response.data.Orders){
+
+                    for(var item in response.data.Orders[order].OrderBoggiItems){
+											if (!item.OrdineRegalo){
+                        var trovato = false;
+                        for(var obj in $scope.infos){
+                            if($scope.infos[obj].name==response.data.Orders[order].OrderBoggiItems[item].GroupDescription){
+															if ($scope.parseDate(response.data.Orders[order].DataOrdine)>=$scope.OrderDate){
+	                                trovato = true;
+	                            }
+                        		}
+                    		}
+												if(!trovato){
+													$scope.OrderDate=$scope.parseDate(response.data.Orders[order].DataOrdine);
+													$scope.infos.push({date:$scope.OrderDate, name:response.data.Orders[order].OrderBoggiItems[item].GroupDescription, size: response.data.Orders[order].OrderBoggiItems[item].Taglia});
+												}
+											}
+											else {
+												$scope.gift=0;
+											}
+										}
+                }
+								console.log($scope.infos);
+
                 for(var order in response.data.Orders){
 										var date = new Date($scope.parseDate(response.data.Orders[order].DataOrdine));
 										$scope.prices.push([Date.UTC(date.getFullYear(), date.getMonth(), date.getDay()), response.data.Orders[order].Totale]);
