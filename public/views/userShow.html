@@ -7,6 +7,27 @@
     <h3><small>Birthday: </small>{{data.DemandwareCustomer.Birthday}}</h3>
     <h3><small>Points: </small>{{data.DemandwareCustomer.Points}}</h3>
     <h3><small>Customer Since: </small>{{convertDate(data.DemandwareCustomer.CreationDate)}}</h3>
+    <hr>
+    <div class="panel panel-default">
+    <div class="panel-heading">SIZEs</div>
+    <div class="panel-body">
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody ng-repeat="items in data.Orders">
+      <tr ng-repeat="size in items.OrderBoggiItems">
+        <td>{{size.GroupDescription}}</td>
+        <td>{{size.Taglia}}</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+  </div>
+    <hr>
     <highchart config="typeChartConfig"></highchart>
     <h3><small>Orders: </small></h3>
     <div class="container" ng-repeat="order in data.Orders">
