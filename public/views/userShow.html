@@ -1,5 +1,8 @@
 
-<div ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
+<div  ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
+<div class="row">
+  <br>
+<div class="col-md-4">
     <h3>Customer data</h3>
 
     <img class="img-responsive thumb" ng-src="/images/cake.png" ng-hide="birthday"></img>
@@ -8,29 +11,37 @@
     <h3><small>Mobile Phone: <b>{{data.DemandwareCustomer.MobilePhone}}</b></small></h3>
     <h3><small>Email: <b>{{data.DemandwareCustomer.Email}}</b></small></h3>
     <h3><small>Birthday: <b>{{data.DemandwareCustomer.Birthday}}</b></small></h3>
+  </div>
+  <div class="col-md-4">
+    <h3>Privilege Card</h3>
+    <img class="img-responsive thumb" ng-src="/images/card.png"></img>
+    <h3 ng-hide="card"><b>+10% EXTRA discount</b></h3>
     <h3><small>Card points: <b>{{data.DemandwareCustomer.Points}}</b></small></h3>
-    <h3><small>Customer Since: <b>{{convertDate(data.DemandwareCustomer.CreationDate)}}</b></small></h3>
-    <hr>
-    <div class="panel panel-default">
-    <div class="panel-heading"><h3><small><b>SIZEs</b></small></h3></div>
-    <div class="panel-body">
-      <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Size</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="info in infos">
-        <td>{{info.name}}</td>
-        <td>{{info.size}}</td>
-      </tr>
-    </tbody>
-  </table>
+    <h3><small>Discount: <b>{{data.DemandwareCustomer.Discount}}%</b></small></h3>
+    <h3><small>Registration date <b>{{convertDate(data.DemandwareCustomer.CreationDate)}}</b></small></h3>
+  </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+      <div class="panel-heading"><h3><small><b>SIZEs</b></small></h3></div>
+      <div class="panel-body">
+        <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="info in infos">
+          <td>{{info.name}}</td>
+          <td>{{info.size}}</td>
+        </tr>
+      </tbody>
+    </table>
+      </div>
     </div>
   </div>
-    <hr>
+</div>
     <highchart config="typeChartConfig"></highchart>
     <highchart config="priceChartConfig"></highchart>
     <h3><small>Orders: </small></h3>
@@ -50,6 +61,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="flex-center position-ref full-height">
     <div class="content">

@@ -4,9 +4,11 @@ angular.module('boggiApp')
 			$scope.date= new Date();
 			 $scope.birthday=1;
 			 $scope.gift=1;
+			 $scope.card=1;
 		   $scope.done = false;
 		   $scope.types = [];
 			 $scope.prices = [];
+
 		   $scope.infos = [];
 		   $scope.parseDate = function(date){
 		       var ms = parseInt(date.slice(6, 19), 10);
@@ -30,9 +32,21 @@ angular.module('boggiApp')
                 $scope.done = true;
 								$scope.OrderDate=new Date(0);
                 $scope.data = response.data;
-								console.log((new Date(response.data.DemandwareCustomer.Birthday)).getMonth());
+								console.log($scope.data);
 								if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
 									$scope.birthday=0;
+								}
+								var start = new Date(response.data.DemandwareCustomer.CreationDate);
+								var end = new Date();
+
+								// end - start returns difference in milliseconds
+								var diff = new Date(end - start);
+
+								// get days
+								var days = diff/1000/60/60/24;
+								console.log(days);
+								if (days>365){
+									$scope.card=0;
 								}
 								for(var order in response.data.Orders){
 
@@ -56,7 +70,7 @@ angular.module('boggiApp')
 											}
 										}
                 }
-								console.log($scope.infos);
+
 
                 for(var order in response.data.Orders){
 										var date = new Date($scope.parseDate(response.data.Orders[order].DataOrdine));
