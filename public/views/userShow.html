@@ -13,7 +13,7 @@
     <div class="container bottom-border" ng-repeat="order in data.Orders">
         <h3><small>Date: </small>{{parseDate(order.DataOrdine)}}</h3>
         <div class="container" ng-repeat="item in order.OrderBoggiItems">
-            <img src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
+            <img ng-src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
             <div>
                 <h4><small>Description: </small>{{item.DescrizioneArt}}</h4>
                 <h4><small>Price: </small>{{item.Prezzo}}</h4>
