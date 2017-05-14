@@ -1,0 +1,29 @@
+
+{{info}}
+
+<div ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
+    <h3><small>First Name: </small>{{data.DemandwareCustomer.FirstName}}</h3>
+    <h3><small>Last Name: </small>{{data.DemandwareCustomer.LastName}}</h3>
+    <h3><small>Mobile Phone: </small>{{data.DemandwareCustomer.MobilePhone}}</h3>
+    <h3><small>Email: </small>{{data.DemandwareCustomer.Email}}</h3>
+    <h3><small>Birthday: </small>{{data.DemandwareCustomer.Birthday}}</h3>
+    <h3><small>Points: </small>{{data.DemandwareCustomer.Points}}</h3>
+    <h3><small>Customer Since: </small>{{convertDate(data.DemandwareCustomer.CreationDate)}}</h3>
+    <h3><small>Orders: </small></h3>
+    <div class="container" ng-repeat="order in data.Orders">
+        <h3><small>Date: </small>{{parseDate(order.DataOrdine)}}</h3>
+        <div class="container bottom-border" ng-repeat="item in order.OrderBoggiItems">
+            <img src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
+            <h4><small>Description: </small>{{item.DescrizioneArt}}</h4>
+            <h4><small>Price: </small>{{item.Prezzo}}</h4>
+            <h4><small>Size: </small>{{item.Taglia}}</h4>
+            <h4><small>Amount: </small>{{item.Quantita}}</h4>
+            <h4><small>Discounted Price: </small>{{item.PrezzoScontato}}</h4>
+            <h4><small>Group Description: </small>{{item.GroupDescription}}</h4>
+        </div>
+    </div>
+</div>
+
+<div ng-if="done && data.DemandwareCustomer.CustomerID == null" class="container"><h1>This customer isn't in the database</h1></div>
+
+<div ng-if="!done"><h1>Loading content...</h1></div>
