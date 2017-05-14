@@ -98,24 +98,21 @@ router.get('/api/twitter/:query', (req, res) => {
   });
 });
 
-router.get('/api/watson', (req, res) => {
-  var params = {
-    images_file: req.body.data
-  };
-  visual_recognition.classify(params, (errWatson, resWatson) => {
-    console.log('Data retrived by Visual Recognition of Watson');
-    if (errWatson)
-      res.send(errWatson);
-    else
-      res.send(JSON.stringify(resWatson, null, 2));
+router.get('/api/watson/product/:productCode', (req, res) => {
+  var file = fs.createWriteStream('tmp.jpg');
+  var request = http.get('http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/' + req.params.productCode + ".jpg", function(response) {
+    response.pipe(file);
+    var params = {
+      images_file: fs.createReadStream('tmp.jpg')
+    };
+    visual_recognition.classify(params, (errWatson, resWatson) => {
+      console.log('Data retrived by Visual Recognition of Watson');
+      if (errWatson)
+        res.send(errWatson);
+      else
+        res.send(JSON.stringify(resWatson, null, 2));
+    });
   });
-
-/*
-    var file = fs.createWriteStream(req.params.codeProduct + '.png');
-    var request = http.get('http://storage.googleapis.com/gweb-uniblog-publish-prod/static/blog/images/google-200x200.7714256da16f.png', function(response) {
-      response.pipe(file);
-  });
-*/
 });
 
 //------------------------------------------------------------------------------

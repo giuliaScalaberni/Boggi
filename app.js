@@ -4,7 +4,7 @@
 
 //GLOBAL VARIABLE
 const DEVELOPMENT = true;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 //IMPORT
 const express = require('express'); //Express for server

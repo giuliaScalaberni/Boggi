@@ -32,7 +32,9 @@ angular.module('boggiApp')
 			      $http({
 							method: 'POST',
 							url: '/api/watson',
-							data: data
+							data: {
+								img: data
+							}
 						}).then(function(response){
 							console.log(response);
 						}, function(response){
@@ -41,7 +43,7 @@ angular.module('boggiApp')
 			    }
 
 			    r.readAsBinaryString(f);
-			}
+			};
 
 		   $http({
                 method: 'GET',
