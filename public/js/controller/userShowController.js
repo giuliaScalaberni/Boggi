@@ -44,9 +44,9 @@ angular.module('boggiApp')
 							chart: {
 								type: 'pie'
 							},
-							title{
+							title: {
 								text: 'Last orders'
-							}
+							},
 							series: [{
 					        name: 'Product type',
 					        colorByPoint: true,
