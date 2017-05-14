@@ -3,7 +3,7 @@
 <div class="row">
   <br>
 <div class="col-md-4">
-    <h3>Customer data</h3>
+    <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Customer data </h3>
 
     <img class="img-responsive thumb" ng-src="/images/cake.png" ng-hide="birthday"></img>
     <h3><small>First Name <b>{{data.DemandwareCustomer.FirstName}}</b></small></h3>
@@ -13,19 +13,20 @@
     <h3><small>Birthday <b>{{data.DemandwareCustomer.Birthday}}</b></small></h3>
   </div>
   <div class="col-md-4">
-    <h3>Privilege Card</h3>
-    <img class="img-responsive thumb" ng-src="/images/card.png"></img>
+    <h3><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> Privilege Card</h3>
+    <!--img class="img-responsive thumb" ng-src="/images/card.png"></img-->
     <h3 ng-hide="card"><b>+10% EXTRA discount</b></h3>
     <h3><small>Card points <b>{{data.DemandwareCustomer.Points}}</b></small></h3>
     <h3><small>Discount <b>{{data.DemandwareCustomer.Discount}}%</b></small></h3>
     <h3><small>Registration date <b>{{convertDate(data.DemandwareCustomer.CreationDate)}}</b></small></h3>
+    <br>
     <hr>
-      <h3>Average order €{{prize}}</h3>
+      <h3><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Average order €{{prize}}</h3>
     <hr>
   </div>
     <div class="col-md-4">
       <div class="panel panel-default">
-      <div class="panel-heading"><h3><small><b>SIZEs</b></small></h3></div>
+
       <div class="panel-body">
         <table class="table table-striped">
       <thead>
@@ -45,9 +46,12 @@
     </div>
   </div>
 </div>
+<hr>
     <highchart config="typeChartConfig"></highchart>
+    <br>
     <highchart config="priceChartConfig"></highchart>
-    <h3><u>Orders</u></h3>
+<hr>
+    <h3><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <u>Orders</u></h3>
     <div class="container bottom-border" ng-repeat="order in data.Orders">
         <h3><i>{{parseDate(order.DataOrdine)}}</i></h3>
         <div class="container" ng-repeat="item in order.OrderBoggiItems">

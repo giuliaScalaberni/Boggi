@@ -117,7 +117,7 @@ angular.module('boggiApp')
 									type: 'line'
 								},
 								title:{
-									text: 'Price'
+									text: 'History'
 								},
 								plotOptions: {
 			            area: {
