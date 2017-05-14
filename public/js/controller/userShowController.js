@@ -91,7 +91,6 @@ angular.module('boggiApp')
 										var date = new Date($scope.parseDate(response.data.Orders[order].DataOrdine));
 										i++;
 										$scope.prize+=response.data.Orders[order].Totale;
-										console.log($scope.prize);
 										$scope.prices.push([Date.UTC(date.getFullYear(), date.getMonth(), date.getDay()), response.data.Orders[order].Totale]);
                     for(var item in response.data.Orders[order].OrderBoggiItems){
                         var found = false;
