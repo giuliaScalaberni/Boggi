@@ -1,15 +1,18 @@
 
 <div ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
-    <h3><small>First Name: </small>{{data.DemandwareCustomer.FirstName}}</h3>
-    <h3><small>Last Name: </small>{{data.DemandwareCustomer.LastName}}</h3>
-    <h3><small>Mobile Phone: </small>{{data.DemandwareCustomer.MobilePhone}}</h3>
-    <h3><small>Email: </small>{{data.DemandwareCustomer.Email}}</h3>
-    <h3><small>Birthday: </small>{{data.DemandwareCustomer.Birthday}}</h3>
-    <h3><small>Points: </small>{{data.DemandwareCustomer.Points}}</h3>
-    <h3><small>Customer Since: </small>{{convertDate(data.DemandwareCustomer.CreationDate)}}</h3>
+    <h3>Customer data</h3>
+
+    <img class="img-responsive thumb" src="/images/cake.png" ng-show="birthday"></img>
+    <h3><small>First Name: <b>{{data.DemandwareCustomer.FirstName}}</b></small></h3>
+    <h3><small>Last Name: <b>{{data.DemandwareCustomer.LastName}}</b></small></h3>
+    <h3><small>Mobile Phone: <b>{{data.DemandwareCustomer.MobilePhone}}</b></small></h3>
+    <h3><small>Email: <b>{{data.DemandwareCustomer.Email}}</b></small></h3>
+    <h3><small>Birthday: <b>{{data.DemandwareCustomer.Birthday}}</b></small></h3>
+    <h3><small>Card points: <b>{{data.DemandwareCustomer.Points}}</b></small></h3>
+    <h3><small>Customer Since: <b>{{convertDate(data.DemandwareCustomer.CreationDate)}}</b></small></h3>
     <hr>
     <div class="panel panel-default">
-    <div class="panel-heading">SIZEs</div>
+    <div class="panel-heading"><h3><small><b>SIZEs</b></small></h3></div>
     <div class="panel-body">
       <table class="table table-striped">
     <thead>
@@ -44,36 +47,37 @@
     </div>
 </div>
 
-<div ng-if="done && data.DemandwareCustomer.CustomerID == null" class="container"><h1>This customer isn't in the database</h1></div>
 <div class="flex-center position-ref full-height">
     <div class="content">
+    <style>
+    .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    }
+    Try it Yourself »
+
+    @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+    </style>
 
         <div class="m-b-md">
+          <div ng-if="done && data.DemandwareCustomer.CustomerID == null" class="container"><h1>This customer isn't in the database</h1></div>
+
           <div ng-if="!done">
-          <style>
-          .loader {
-          border: 16px solid #f3f3f3;
-          border-radius: 50%;
-          border-top: 16px solid #3498db;
-          width: 120px;
-          height: 120px;
-          -webkit-animation: spin 2s linear infinite;
-          animation: spin 2s linear infinite;
-          margin: auto;
-          }
-          Try it Yourself »
-
-          @-webkit-keyframes spin {
-          0% { -webkit-transform: rotate(0deg); }
-          100% { -webkit-transform: rotate(360deg); }
-          }
-
-          @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-          }
-          </style>
-            <div class="loader center"></div>
+          <div class="loader center"></div>
           </div>
 
 

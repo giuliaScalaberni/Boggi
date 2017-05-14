@@ -1,6 +1,9 @@
 angular.module('boggiApp')
 
 		.controller('userShowController', function($scope, $stateParams, $http){
+			$scope.date= new Date();
+			 $scope.birthday=1;
+
 		   $scope.done = false;
 		   $scope.info = [];
 		   $scope.parseDate = function(date){
@@ -23,6 +26,9 @@ angular.module('boggiApp')
                 console.log(response);
                 $scope.done = true;
                 $scope.data = response.data;
+								if (response.data.DemandwareCustomer.Birthday==$scope.date){
+									$scope.birthday=0;
+								}
                 for(var order in response.data.Orders){
                     for(var item in response.data.Orders[order].OrderBoggiItems){
                         var found = false;
