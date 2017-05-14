@@ -2,7 +2,7 @@
 <div ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
     <h3>Customer data</h3>
 
-    <img class="img-responsive thumb" src="/images/cake.png" ng-show="birthday"></img>
+    <img class="img-responsive thumb" src="/images/cake.png" ng-hide="birthday"></img>
     <h3><small>First Name: <b>{{data.DemandwareCustomer.FirstName}}</b></small></h3>
     <h3><small>Last Name: <b>{{data.DemandwareCustomer.LastName}}</b></small></h3>
     <h3><small>Mobile Phone: <b>{{data.DemandwareCustomer.MobilePhone}}</b></small></h3>
@@ -21,10 +21,10 @@
         <th>Size</th>
       </tr>
     </thead>
-    <tbody ng-repeat="items in data.Orders">
-      <tr ng-repeat="size in items.OrderBoggiItems">
-        <td>{{size.GroupDescription}}</td>
-        <td>{{size.Taglia}}</td>
+    <tbody>
+      <tr ng-repeat="info in infos">
+        <td>{{info.name}}</td>
+        <td>{{info.size}}</td>
       </tr>
     </tbody>
   </table>
