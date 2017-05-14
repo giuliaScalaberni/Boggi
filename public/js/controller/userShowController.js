@@ -7,7 +7,7 @@ angular.module('boggiApp')
 		       var parsedDate = new Date(ms);
 		       var str = parsedDate.toDateString()
 		       return str;
-		       
+
 		   };
 		   $scope.convertDate = function(date){
 		       var parsedDate = new Date(date);
@@ -25,13 +25,13 @@ angular.module('boggiApp')
                     for(var item in response.data.Orders[order].OrderBoggiItems){
                         var found = false;
                         for(var obj in $scope.info){
-                            if($scope.info[obj].type==response.data.Orders[order].OrderBoggiItems[item].GroupDescription){
-                                $scope.info[obj].amount+=response.data.Orders[order].OrderBoggiItems[item].Quantita;
+                            if($scope.info[obj].name==response.data.Orders[order].OrderBoggiItems[item].GroupDescription){
+                                $scope.info[obj].y+=response.data.Orders[order].OrderBoggiItems[item].Quantita;
                                 found = true;
                             }
                         }
                         if(!found){
-                            $scope.info.push({type:response.data.Orders[order].OrderBoggiItems[item].GroupDescription, amount: response.data.Orders[order].OrderBoggiItems[item].Quantita});
+                            $scope.info.push({name:response.data.Orders[order].OrderBoggiItems[item].GroupDescription, y: response.data.Orders[order].OrderBoggiItems[item].Quantita});
                         }
                     }
                 }
@@ -39,13 +39,19 @@ angular.module('boggiApp')
                 console.log(response);
                 $scope.done = true;
             });
-            /*$http({
-                method: 'GET',
-                url: 'js/controller/customer.json',
-            }).then(function(response) {
-                console.log(response);
-                $scope.data = response.data;
-            }, function(response) {
-                console.log(response);
-            });*/
+
+						$scope.typeChartConfig = {
+							chart: {
+								type: 'pie'
+							},
+							title{
+								text: 'Last orders'
+							}
+							series: [{
+					        name: 'Product type',
+					        colorByPoint: true,
+					        data: $scope.info
+					    }]
+						};
+
 		});

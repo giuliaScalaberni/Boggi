@@ -1,6 +1,4 @@
 
-{{info}}
-
 <div ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
     <h3><small>First Name: </small>{{data.DemandwareCustomer.FirstName}}</h3>
     <h3><small>Last Name: </small>{{data.DemandwareCustomer.LastName}}</h3>
@@ -9,6 +7,7 @@
     <h3><small>Birthday: </small>{{data.DemandwareCustomer.Birthday}}</h3>
     <h3><small>Points: </small>{{data.DemandwareCustomer.Points}}</h3>
     <h3><small>Customer Since: </small>{{convertDate(data.DemandwareCustomer.CreationDate)}}</h3>
+    <highchart config="typeChartConfig"></highchart>
     <h3><small>Orders: </small></h3>
     <div class="container" ng-repeat="order in data.Orders">
         <h3><small>Date: </small>{{parseDate(order.DataOrdine)}}</h3>

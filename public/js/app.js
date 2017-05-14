@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('boggiApp',['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
+angular.module('boggiApp',['ui.router', 'highcharts-ng']).config(function ($stateProvider, $urlRouterProvider) {
 
 	$urlRouterProvider.otherwise('/');
 
