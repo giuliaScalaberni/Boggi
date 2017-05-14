@@ -48,7 +48,7 @@ angular.module('boggiApp')
 								text: 'Last orders'
 							},
 							series: [{
-					        name: 'Product type',
+					        name: 'Product amount',
 					        colorByPoint: true,
 					        data: $scope.info
 					    }]
