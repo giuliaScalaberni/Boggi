@@ -1,0 +1,45 @@
+<h4>First Name</h4>
+<h4>
+    {{data.DemandwareCustomer.FirstName}}
+</h4>
+<h4>Last Name</h4>
+<h4>
+    {{data.DemandwareCustomer.LastName}}
+</h4>
+<h4>Mobile Phone</h4>
+<h4>
+    {{data.DemandwareCustomer.MobilePhone}}
+</h4>
+<h4>Email</h4>
+<h4>
+    {{data.DemandwareCustomer.Email}}
+</h4>
+<h4>Birthday</h4>
+<h4>
+    {{data.DemandwareCustomer.Birthday}}
+</h4>
+<h4>Points</h4>
+<h4>
+    {{data.DemandwareCustomer.Points}}
+</h4>
+<h4>Customer Since</h4>
+<h4>
+    {{data.DemandwareCustomer.CreationDate}}
+</h4>
+<h4>Orders</h4>
+<div ng-repeat="order in data.Orders">
+    <div ng-repeat="item in order.OrderBoggiItems">
+        <h4>Description</h4>
+        <h4>{{item.DescrizioneArt}}</h4>
+        <h4>Price</h4>
+        <h4>{{item.Prezzo}}</h4>
+        <h4>Size</h4>
+        <h4>{{item.Taglia}}</h4>
+        <h4>Amount</h4>
+        <h4>{{item.Quantita}}</h4>
+        <h4>Discounted Price</h4>
+        <h4>{{item.PrezzoScontato}}</h4>
+        <h4>Group Description</h4>
+        <h4>{{item.GroupDescription}}</h4>
+    </div>
+</div>

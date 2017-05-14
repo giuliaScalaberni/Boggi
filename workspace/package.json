@@ -1,0 +1,59 @@
+{
+  "name": "Demo-BOGGI-Proxyma",
+  "version": "0.0.1",
+  "description": "README.md",
+  "author": "Proxyma",
+  "private": true,
+  "contributors": [
+    {
+      "name": "Luca Giantomasi",
+      "email": "lucagiantomasi@gmail.com"
+    },
+    {
+      "name": "Giulia Scalaberni",
+      "email": "mail@mail.com"
+    },
+    {
+      "name": "Gabriele Stefani",
+      "email": "mail@mail.com"
+    },
+    {
+      "name": "Edoardo Bonanni",
+      "email": "mail@mail.com"
+    },
+    {
+      "name": "Lorenzo Calamandrei",
+      "email": "calamandrei.lorenzo@gmail.com"
+    }
+  ],
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "App": "node app.js",
+    "watch": "npm-watch"
+  },
+  "keywords": [
+    "node",
+    "watson",
+    "BOGGI"
+  ],
+  "dependencies": {
+    "body-parser": "1.17.1",
+    "express": "4.15.2",
+    "mysql": "^2.13.0",
+    "npm-watch": "0.1.9"
+  },
+  "engines": {
+    "node": "4.6.1",
+    "npm": "2.15.9"
+  },
+  "watch": {
+    "App": {
+      "patterns": [
+        "**"
+      ],
+      "extensions": "*"
+    }
+  },
+  "license": "MIT"
+}
