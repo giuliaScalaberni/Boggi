@@ -1,26 +1,60 @@
 {
-  "name": "get-started-node",
-  "main": "server.js",
-  "description": "An introduction to developing Node.js apps on the Bluemix platform",
-  "version": "0.1.1",
-  "private": false,
-  "engines": {
-    "node": "4.*"
-  },
+  "name": "Demo-BOGGI-Proxyma",
+  "version": "0.0.1",
+  "description": "README.md",
+  "author": "Proxyma",
+  "private": true,
+  "contributors": [
+    {
+      "name": "Luca Giantomasi",
+      "email": "lucagiantomasi@gmail.com"
+    },
+    {
+      "name": "Giulia Scalaberni",
+      "email": "mail@mail.com"
+    },
+    {
+      "name": "Gabriele Stefani",
+      "email": "mail@mail.com"
+    },
+    {
+      "name": "Edoardo Bonanni",
+      "email": "mail@mail.com"
+    },
+    {
+      "name": "Lorenzo Calamandrei",
+      "email": "calamandrei.lorenzo@gmail.com"
+    }
+  ],
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js",
+    "App": "node app.js",
+    "watch": "npm-watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/IBM-Bluemix/get-started-node"
-  },
+  "keywords": [
+    "node",
+    "watson",
+    "BOGGI"
+  ],
   "dependencies": {
-    "body-parser": "^1.16.1",
-    "cfenv": "^1.0.x",
-    "cloudant": "^1.7.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.14.1"
+    "body-parser": "1.17.1",
+    "express": "4.15.2",
+    "mysql": "^2.13.0",
+    "npm-watch": "0.1.9",
+    "twitter": "^1.7.0"
   },
-  "author": "IBM Corp",
-  "license": "Apache-2.0"
+  "engines": {
+    "node": "4.6.1",
+    "npm": "2.15.9"
+  },
+  "watch": {
+    "App": {
+      "patterns": [
+        "**"
+      ],
+      "extensions": "*"
+    }
+  },
+  "license": "MIT"
 }
