@@ -23,12 +23,30 @@ angular.module('boggiApp')
 		       return str;
 		   }
 
+			 $scope.add = function() {
+			    var f = document.getElementById('file').files[0],
+			        r = new FileReader();
+
+			    r.onloadend = function(e) {
+			      var data = e.target.result;
+			      $http({
+							method: 'POST',
+							url: '/api/watson',
+							data: data
+						}).then(function(response){
+							console.log(response);
+						}, function(response){
+							console.log(response);
+						});
+			    }
+
+			    r.readAsBinaryString(f);
+			}
 
 		   $http({
                 method: 'GET',
                 url: '/api/v1/user/' + $stateParams.userEmail,
             }).then(function(response) {
-								$scope.size=[];
                 $scope.done = true;
 								$scope.OrderDate=new Date(0);
                 $scope.data = response.data;
