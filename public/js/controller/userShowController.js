@@ -8,6 +8,7 @@ angular.module('boggiApp')
 		   $scope.done = false;
 		   $scope.types = [];
 			 $scope.prices = [];
+			 $scope.prize=0;
 
 		   $scope.infos = [];
 		   $scope.parseDate = function(date){
@@ -47,10 +48,10 @@ angular.module('boggiApp')
                 method: 'GET',
                 url: '/api/v1/user/' + $stateParams.userEmail,
             }).then(function(response) {
+								var i=0;
                 $scope.done = true;
 								$scope.OrderDate=new Date(0);
                 $scope.data = response.data;
-								console.log($scope.data);
 								if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
 									$scope.birthday=0;
 								}
@@ -61,13 +62,11 @@ angular.module('boggiApp')
 								var diff = new Date(end - start);
 
 								// get days
-								var days = diff/1000/60/60/24;
-								console.log(days);
+								var days = diff/1000/60/60/24
 								if (days>365){
 									$scope.card=0;
 								}
 								for(var order in response.data.Orders){
-
                     for(var item in response.data.Orders[order].OrderBoggiItems){
 											if (!item.OrdineRegalo){
                         var trovato = false;
@@ -88,10 +87,11 @@ angular.module('boggiApp')
 											}
 										}
                 }
-
-
                 for(var order in response.data.Orders){
 										var date = new Date($scope.parseDate(response.data.Orders[order].DataOrdine));
+										i++;
+										$scope.prize+=response.data.Orders[order].Totale;
+										console.log($scope.prize);
 										$scope.prices.push([Date.UTC(date.getFullYear(), date.getMonth(), date.getDay()), response.data.Orders[order].Totale]);
                     for(var item in response.data.Orders[order].OrderBoggiItems){
                         var found = false;
@@ -99,6 +99,7 @@ angular.module('boggiApp')
                             if($scope.types[obj].name==response.data.Orders[order].OrderBoggiItems[item].GroupDescription){
                                 $scope.types[obj].y+=response.data.Orders[order].OrderBoggiItems[item].Quantita;
                                 found = true;
+
                             }
                         }
                         if(!found){
@@ -106,6 +107,7 @@ angular.module('boggiApp')
                         }
                     }
                 }
+								$scope.prize=Number(($scope.prize/i).toFixed(2));
             }, function(response) {
                 console.log(response);
                 $scope.done = true;
