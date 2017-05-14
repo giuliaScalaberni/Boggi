@@ -18,9 +18,9 @@
         <div class="m-b-md">
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 text-center control-label">Email cliente</label>
-                    <div class="col-sm-10">
-                        <input type="email" ng-required class="form-control" id="inputEmail" ng-model="email"  placeholder="Custumer email" required>
+                    <label for="inputEmail" class="col-sm-4 control-label">Customer email</label>
+                    <div class="col-sm-8">
+                        <input type="email" ng-required class="form-control" id="inputEmail" ng-model="email"  placeholder="Enter custumer email" required>
 
                     </div>
                 </div>
@@ -28,9 +28,9 @@
         </div>
 
         <div class="links">
-            <button class="btn btn-default"  ng-click="email = null" id="reset">Reset</button>
+            <button class="btn btn-lg btn-default"  ng-click="email = null" id="reset">Reset</button>
             <a ui-sref="userShow({userEmail: email})">
-              <button type="submit" class="btn btn-info"    id="search">Cerca</button>
+              <button type="submit" class="btn btn-lg btn-info"    id="search">Find</button>
             </a>
 
 
