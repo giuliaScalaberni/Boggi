@@ -19,7 +19,6 @@ angular.module('boggiApp')
                 method: 'GET',
                 url: '/api/v1/user/' + $stateParams.userEmail,
             }).then(function(response) {
-                console.log(response);
                 $scope.done = true;
                 $scope.data = response.data;
                 for(var order in response.data.Orders){
