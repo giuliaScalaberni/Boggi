@@ -6,18 +6,18 @@
     <h3>Customer data</h3>
 
     <img class="img-responsive thumb" ng-src="/images/cake.png" ng-hide="birthday"></img>
-    <h3><small>First Name: <b>{{data.DemandwareCustomer.FirstName}}</b></small></h3>
-    <h3><small>Last Name: <b>{{data.DemandwareCustomer.LastName}}</b></small></h3>
-    <h3><small>Mobile Phone: <b>{{data.DemandwareCustomer.MobilePhone}}</b></small></h3>
-    <h3><small>Email: <b>{{data.DemandwareCustomer.Email}}</b></small></h3>
-    <h3><small>Birthday: <b>{{data.DemandwareCustomer.Birthday}}</b></small></h3>
+    <h3><small>First Name <b>{{data.DemandwareCustomer.FirstName}}</b></small></h3>
+    <h3><small>Last Name <b>{{data.DemandwareCustomer.LastName}}</b></small></h3>
+    <h3><small>Mobile Phone <b>{{data.DemandwareCustomer.MobilePhone}}</b></small></h3>
+    <h3><small>Email <b>{{data.DemandwareCustomer.Email}}</b></small></h3>
+    <h3><small>Birthday <b>{{data.DemandwareCustomer.Birthday}}</b></small></h3>
   </div>
   <div class="col-md-4">
     <h3>Privilege Card</h3>
     <img class="img-responsive thumb" ng-src="/images/card.png"></img>
     <h3 ng-hide="card"><b>+10% EXTRA discount</b></h3>
-    <h3><small>Card points: <b>{{data.DemandwareCustomer.Points}}</b></small></h3>
-    <h3><small>Discount: <b>{{data.DemandwareCustomer.Discount}}%</b></small></h3>
+    <h3><small>Card points <b>{{data.DemandwareCustomer.Points}}</b></small></h3>
+    <h3><small>Discount <b>{{data.DemandwareCustomer.Discount}}%</b></small></h3>
     <h3><small>Registration date <b>{{convertDate(data.DemandwareCustomer.CreationDate)}}</b></small></h3>
   </div>
     <div class="col-md-4">
@@ -50,12 +50,12 @@
         <div class="container" ng-repeat="item in order.OrderBoggiItems">
             <img ng-src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
             <div>
-                <h4><small>Description: </small>{{item.DescrizioneArt}}</h4>
-                <h4><small>Price: </small>{{item.Prezzo}}</h4>
-                <h4><small>Size: </small>{{item.Taglia}}</h4>
-                <h4><small>Amount: </small>{{item.Quantita}}</h4>
-                <h4><small>Discounted Price: </small>{{item.PrezzoScontato}}</h4>
-                <h4><small>Group Description: </small>{{item.GroupDescription}}</h4>
+                <h4><small>Description </small>{{item.DescrizioneArt}}</h4>
+                <h4><small>Price </small>{{item.Prezzo}}</h4>
+                <h4><small>Size </small>{{item.Taglia}}</h4>
+                <h4><small>Amount </small>{{item.Quantita}}</h4>
+                <h4><small>Discounted Price </small>{{item.PrezzoScontato}}</h4>
+                <h4><small>Group Description </small>{{item.GroupDescription}}</h4>
                 <img class="img-responsive thumb" ng-src="/images/gift.png" ng-hide="gift"></img>
             </div>
         </div>
