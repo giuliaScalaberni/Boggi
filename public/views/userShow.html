@@ -8,17 +8,20 @@
     <h3><small>Points: </small>{{data.DemandwareCustomer.Points}}</h3>
     <h3><small>Customer Since: </small>{{convertDate(data.DemandwareCustomer.CreationDate)}}</h3>
     <highchart config="typeChartConfig"></highchart>
+    <highchart config="priceChartConfig"></highchart>
     <h3><small>Orders: </small></h3>
     <div class="container bottom-border" ng-repeat="order in data.Orders">
         <h3><small>Date: </small>{{parseDate(order.DataOrdine)}}</h3>
         <div class="container" ng-repeat="item in order.OrderBoggiItems">
             <img src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
-            <h4><small>Description: </small>{{item.DescrizioneArt}}</h4>
-            <h4><small>Price: </small>{{item.Prezzo}}</h4>
-            <h4><small>Size: </small>{{item.Taglia}}</h4>
-            <h4><small>Amount: </small>{{item.Quantita}}</h4>
-            <h4><small>Discounted Price: </small>{{item.PrezzoScontato}}</h4>
-            <h4><small>Group Description: </small>{{item.GroupDescription}}</h4>
+            <div>
+                <h4><small>Description: </small>{{item.DescrizioneArt}}</h4>
+                <h4><small>Price: </small>{{item.Prezzo}}</h4>
+                <h4><small>Size: </small>{{item.Taglia}}</h4>
+                <h4><small>Amount: </small>{{item.Quantita}}</h4>
+                <h4><small>Discounted Price: </small>{{item.PrezzoScontato}}</h4>
+                <h4><small>Group Description: </small>{{item.GroupDescription}}</h4>
+            </div>
         </div>
     </div>
 </div>

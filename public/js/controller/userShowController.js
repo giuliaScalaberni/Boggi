@@ -1,7 +1,31 @@
+(function(){
+  if (typeof Object.defineProperty === 'function'){
+    try{Object.defineProperty(Array.prototype,'sortBy',{value:sb}); }catch(e){}
+  }
+  if (!Array.prototype.sortBy) Array.prototype.sortBy = sb;
+
+  function sb(f){
+    for (var i=this.length;i;){
+      var o = this[--i];
+      this[i] = [].concat(f.call(o,o,i),o);
+    }
+    this.sort(function(a,b){
+      for (var i=0,len=a.length;i<len;++i){
+        if (a[i]!=b[i]) return a[i]<b[i]?-1:1;
+      }
+      return 0;
+    });
+    for (var i=this.length;i;){
+      this[--i]=this[i][this[i].length-1];
+    }
+    return this;
+  }
+})();
 angular.module('boggiApp')
 		.controller('userShowController', function($scope, $stateParams, $http){
 		   $scope.done = false;
-		   $scope.info = [];
+		   $scope.types = [];
+			 $scope.prices = [];
 		   $scope.parseDate = function(date){
 		       var ms = parseInt(date.slice(6, 19), 10);
 		       var parsedDate = new Date(ms);
@@ -22,16 +46,18 @@ angular.module('boggiApp')
                 $scope.done = true;
                 $scope.data = response.data;
                 for(var order in response.data.Orders){
+										var date = new Date($scope.parseDate(response.data.Orders[order].DataOrdine));
+										$scope.prices.push([Date.UTC(date.getFullYear(), date.getMonth(), date.getDay()), response.data.Orders[order].Totale]);
                     for(var item in response.data.Orders[order].OrderBoggiItems){
                         var found = false;
-                        for(var obj in $scope.info){
-                            if($scope.info[obj].name==response.data.Orders[order].OrderBoggiItems[item].GroupDescription){
-                                $scope.info[obj].y+=response.data.Orders[order].OrderBoggiItems[item].Quantita;
+                        for(var obj in $scope.types){
+                            if($scope.types[obj].name==response.data.Orders[order].OrderBoggiItems[item].GroupDescription){
+                                $scope.types[obj].y+=response.data.Orders[order].OrderBoggiItems[item].Quantita;
                                 found = true;
                             }
                         }
                         if(!found){
-                            $scope.info.push({name:response.data.Orders[order].OrderBoggiItems[item].GroupDescription, y: response.data.Orders[order].OrderBoggiItems[item].Quantita});
+                            $scope.types.push({name:response.data.Orders[order].OrderBoggiItems[item].GroupDescription, y: response.data.Orders[order].OrderBoggiItems[item].Quantita});
                         }
                     }
                 }
@@ -39,6 +65,54 @@ angular.module('boggiApp')
                 console.log(response);
                 $scope.done = true;
             });
+
+						$scope.priceChartConfig = {
+								chart: {
+									type: 'line'
+								},
+								title:{
+									text: 'Price'
+								},
+								plotOptions: {
+			            area: {
+			                fillColor: {
+			                    linearGradient: {
+			                        x1: 0,
+			                        y1: 0,
+			                        x2: 0,
+			                        y2: 1
+			                    },
+			                    stops: [
+			                        [0, Highcharts.getOptions().colors[0]],
+			                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+			                    ]
+			                },
+			                marker: {
+			                    radius: 2
+			                },
+			                lineWidth: 1,
+			                states: {
+			                    hover: {
+			                        lineWidth: 1
+			                    }
+			                },
+			                threshold: null
+			            }
+			        },
+							xAxis: {
+					        type: 'datetime'
+					    },
+					    yAxis: {
+					        title: {
+					            text: 'Price (€)'
+					        }
+					    },
+							series: [{
+			            type: 'area',
+			            name: 'Order price',
+			            data: $scope.prices
+			        }]
+						};
 
 						$scope.typeChartConfig = {
 							chart: {
@@ -50,7 +124,7 @@ angular.module('boggiApp')
 							series: [{
 					        name: 'Product amount',
 					        colorByPoint: true,
-					        data: $scope.info
+					        data: $scope.types
 					    }]
 						};
 
