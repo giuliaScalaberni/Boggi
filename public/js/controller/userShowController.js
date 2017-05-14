@@ -1,4 +1,5 @@
 angular.module('boggiApp')
+
 		.controller('userShowController', function($scope, $stateParams, $http){
 		   $scope.done = false;
 		   $scope.info = [];
@@ -14,6 +15,7 @@ angular.module('boggiApp')
 		       var str = parsedDate.toDateString();
 		       return str;
 		   }
+
 		   $http({
                 method: 'GET',
                 url: '/api/v1/user/' + $stateParams.userEmail,
