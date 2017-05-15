@@ -52,6 +52,7 @@ angular.module('boggiApp')
                 $scope.done = true;
 								$scope.OrderDate=new Date(0);
                 $scope.data = response.data;
+								console.log(response.data);
 								if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
 									$scope.birthday=0;
 								}
