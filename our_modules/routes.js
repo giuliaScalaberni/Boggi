@@ -13,7 +13,7 @@ var naturalLanguageUnderstanding = new natural_language_understandingV1({
   'version_date': '2017-02-27'
 });
 var visualRecognition = watson.visual_recognition({
-  api_key: '6b199f892dd618c030a17cfbf2c529df32fd52a3',
+  api_key: '21b40f0e5d62aa2ed107f63ac803f4d90ab69d6a',
   version: 'v3',
   version_date: '2016-05-20'
 });
