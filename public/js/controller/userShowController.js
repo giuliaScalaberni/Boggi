@@ -24,6 +24,7 @@ angular.module('boggiApp')
 			 $scope.sel=[];
 			 $scope.chart=false;
 			 $scope.twitterChart=false;
+			 $scope.test = '';
 
 
 		   $scope.parseDate = function(date){
@@ -49,30 +50,48 @@ angular.module('boggiApp')
 						url: 'api/instagram/' + instagramUsername + '/media'
 					}).then(function(response){
 						$scope.isInstagramSelected = true;
-						for(var instagramPost in response.data.userPhoto){
-							$http({
-								method: 'POST',
-								url: 'api/watson/vr/url',
-								data:{
-									url: response.data.userPhoto[instagramPost].photo
-								}
-							}).then(function(res){
-								$scope.chart=true;
-								/*!!!!IMPORTANT CHANGE!!!*/
-									$scope.watsonVrInfos.push(res.data.images[0].classifiers[0].classes);
-									for(var watsonVrInfo in $scope.watsonVrInfos){
-										for(var info in $scope.watsonVrInfos[watsonVrInfo]){
-											$scope.instagramData.push({name: $scope.watsonVrInfos[watsonVrInfo][info].class, y: $scope.watsonVrInfos[watsonVrInfo][info].score * 100})
-										}
+						if(response.data.length > 0){
+							for(var instagramPost in response.data.userPhoto){
+								$http({
+									method: 'POST',
+									url: 'api/watson/vr/url',
+									data:{
+										url: response.data.userPhoto[instagramPost].photo
 									}
-							}, function(res){
-								console.log(res);
-							});
+								}).then(function(res){
+									$scope.chart=true;
+									/*!!!!IMPORTANT CHANGE!!!*/
+										$scope.watsonVrInfos.push(res.data.images[0].classifiers[0].classes);
+										for(var watsonVrInfo in $scope.watsonVrInfos){
+											for(var info in $scope.watsonVrInfos[watsonVrInfo]){
+												$scope.instagramData.push({name: $scope.watsonVrInfos[watsonVrInfo][info].class, y: $scope.watsonVrInfos[watsonVrInfo][info].score * 100})
+											}
+										}
+								}, function(res){
+									console.log(res);
+								});
+							}
+						}
+						else{
+							$scope.test = 'No items';
 						}
 					}, function(response){
 						console.log(response);
 					});
 			 };
+
+		 	$scope.backToInstagramIndex = function(){
+				$scope.instagramData = [];
+				$scope.chart = false;
+				$scope.isInstagramSelected = false;
+		 	};
+
+			$scope.backToTwitterIndex = function(){
+				$scope.twitterData = [];
+				$scope.watsonNluInfo=[];
+				$scope.twitterChart = false;
+				$scope.isTwitterSelected = false;
+			}
 
 			 $scope.twitterData=[];
 			 $scope.isTwitterSelected = false;
@@ -91,8 +110,7 @@ angular.module('boggiApp')
 									text: response.data.StringTweets
 								}
 							}).then(function(res){
-
-									$scope.twitterChart=true;
+								$scope.twitterChart=true;
 								console.log(res);
 								$scope.watsonNluInfo = res.data.categories;
 								for(var info in $scope.watsonNluInfo){
