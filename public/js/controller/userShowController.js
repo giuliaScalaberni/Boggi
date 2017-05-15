@@ -37,7 +37,6 @@ angular.module('boggiApp')
 		       return str;
 		   }
 
-<<<<<<< HEAD
 			 $scope.changeProd=function(){
 				 if(this.prod.name!="All"){
 				 $scope.sel=[];
@@ -61,17 +60,14 @@ angular.module('boggiApp')
 								 }
 
 								 console.log($scope.sel);
-								 
+
 
 
 
 }
 
 		 };
-
-=======
-			 $scope.watsonVrInfo=[]
->>>>>>> 149aa0a807836231fb06efb9f63f3429653db49d
+			 $scope.watsonVrInfo=[];
 
 			 $scope.chooseInstagramProfile = function(instagramUsername){
 					$http({
