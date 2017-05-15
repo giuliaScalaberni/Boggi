@@ -1,8 +1,10 @@
 
+  <h3><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Instagram Profiles </h3>
+ <br>
 <div class="col-md-4" ng-if="!isInstagramSelected" ng-repeat="instagramProfile in instagramProfiles"  ng-click="chooseInstagramProfile(instagramProfile.username)">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4><small>Username: </small>{{instagramProfile.username}}</h4>
+        <h4><small>Username </small>{{instagramProfile.username}}</h4>
       </div>
       <div class="panel-body">
         <img ng-src="{{instagramProfile.profile_picture}}" class="img-responsive"></img>

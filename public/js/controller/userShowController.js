@@ -23,6 +23,7 @@ angular.module('boggiApp')
 			 $scope.items = [];
 			 $scope.sel=[];
 			 $scope.chart=false;
+			 $scope.twitterChart=false;
 
 
 		   $scope.parseDate = function(date){
@@ -91,13 +92,14 @@ angular.module('boggiApp')
 								}
 							}).then(function(res){
 
+									$scope.twitterChart=true;
 								console.log(res);
 								$scope.watsonNluInfo = res.data.categories;
 								for(var info in $scope.watsonNluInfo){
 									var labels = $scope.watsonNluInfo[info].label.split("/");
 									$scope.twitterData.push({name: labels[labels.length - 1], y:$scope.watsonNluInfo[info].score * 100})
 								}
-								
+
 							}, function(res){
 								console.log(res);
 							});
