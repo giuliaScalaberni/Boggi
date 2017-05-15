@@ -36,9 +36,7 @@ function getWatsonFromUrl(url, res){
       response.pipe(file);
       var params = {
         images_file: fs.createReadStream('tmp.jpg'),
-        parameters: {
-          classifiers_ids: ['BoggiClassify_1105946695']
-        }
+        classifier_ids: 'fegsfdb'
       };
       visualRecognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
@@ -55,9 +53,7 @@ function getWatsonFromUrl(url, res){
       response.pipe(file);
       var params = {
         images_file: fs.createReadStream('tmp.jpg'),
-        parameters: {
-          classifiers_ids: ['BoggiClassify_1105946695']
-        }
+        classifiers_ids: 'BOGGI_945944857'
       };
       visualRecognition.classify(params, (err2Watson, res2Watson) => {
         if (err2Watson)
