@@ -52,11 +52,24 @@
     <highchart config="priceChartConfig"></highchart>
 <hr>
     <h3><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <u>Orders</u></h3>
-    <div class="container bottom-border" ng-repeat="order in data.Orders">
-        <h3><i>{{parseDate(order.DataOrdine)}}</i></h3>
+    <div class="container" ng-repeat="order in data.Orders">
+         <div class="panel panel-default">
+           <div class="panel-heading"><h3><i>{{parseDate(order.DataOrdine)}}</i></h3></div>
         <div class="container" ng-repeat="item in order.OrderBoggiItems">
-            <img ng-src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
-            <div>
+
+               <div class="panel-body">
+                 <h3><small>Description <b>{{item.DescrizioneArt}}</b></small></h3>
+                 <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
+                 <h3><small>Size <b>{{item.Taglia}}</b></small></h3>
+                 <h3><small>Amount <b>{{item.Quantita}}</b></small></h3>
+                 <h3><small>Discounted Price €<b>{{item.PrezzoScontato}}</b></small></h3>
+                 <h3><small>Group Description <b>{{item.GroupDescription}}</b></small></h3>
+                 <img ng-src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
+                 <img class="img-responsive thumb" ng-src="/images/gift.png" ng-hide="gift"></img>
+               </div>
+             </div>
+
+          <!--div>
                 <h3><small>Description <b>{{item.DescrizioneArt}}</b></small></h3>
                 <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
                 <h3><small>Size <b>{{item.Taglia}}</b></small></h3>
@@ -64,7 +77,7 @@
                 <h3><small>Discounted Price €<b>{{item.PrezzoScontato}}</b></small></h3>
                 <h3><small>Group Description <b>{{item.GroupDescription}}</b></small></h3>
                 <img class="img-responsive thumb" ng-src="/images/gift.png" ng-hide="gift"></img>
-            </div>
+            </div-->
         </div>
     </div>
 </div>
