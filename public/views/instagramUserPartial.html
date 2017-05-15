@@ -16,10 +16,10 @@
     <highchart ng-show="chart" config="instagramChartConfig"></highchart>
     <hr>
     <div ng-if="isInstagramSelected" ng-repeat="watsonVrInfo in watsonVrInfos">
-        <!--<div ng-repeat="obj in watsonVrInfo">
+        <div ng-repeat="obj in watsonVrInfo">
             <h3><small>Class <b>{{obj.class}}</b></small></h3>
             <h3><small>Score <b>{{(obj.score * 100).toFixed(2)}}%</b></small></h3>
             <hr>
-        </div>-->
+        </div>
     </div>
 </div>
