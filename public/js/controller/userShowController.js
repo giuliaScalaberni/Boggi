@@ -103,27 +103,32 @@ angular.module('boggiApp')
 						url: 'api/twitter/' + twitterUsername + '/tweets'
 					}).then(function(response){
 						$scope.isTwitterSelected = true;
-							$http({
-								method: 'POST',
-								url: 'api/watson/nlu',
-								data:{
-									text: response.data.StringTweets
-								}
-							}).then(function(res){
-								$scope.twitterChart=true;
-								console.log(res);
-								$scope.watsonNluInfo = res.data.categories;
-								for(var info in $scope.watsonNluInfo){
-									var labels = $scope.watsonNluInfo[info].label.split("/");
-									$scope.twitterData.push({name: labels[labels.length - 1], y:$scope.watsonNluInfo[info].score * 100})
-								}
+						if(response.data.StringTweets != ''){
+								$http({
+									method: 'POST',
+									url: 'api/watson/nlu',
+									data:{
+										text: response.data.StringTweets
+									}
+								}).then(function(res){
+									$scope.twitterChart=true;
+									console.log(res);
+									$scope.watsonNluInfo = res.data.categories;
+									for(var info in $scope.watsonNluInfo){
+										var labels = $scope.watsonNluInfo[info].label.split("/");
+										$scope.twitterData.push({name: labels[labels.length - 1], y:$scope.watsonNluInfo[info].score * 100})
+									}
 
-							}, function(res){
-								console.log(res);
-							});
-					}, function(response){
-						console.log(response);
-					});
+								}, function(res){
+									console.log(res);
+								});
+							}
+							else{
+								$scope.test = 'No Items here';
+							}
+						}, function(response){
+							console.log(response);
+						});
 			 };
 
 		   $http({
