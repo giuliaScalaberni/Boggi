@@ -13,7 +13,7 @@ var naturalLanguageUnderstanding = new natural_language_understandingV1({
   'version_date': '2017-02-27'
 });
 var visualRecognition = watson.visual_recognition({
-  api_key: 'f60edd5ed1307e2872c39a45e8d9a9a52fbfc7ec',
+  api_key: '6b199f892dd618c030a17cfbf2c529df32fd52a3',
   version: 'v3',
   version_date: '2016-05-20'
 });
@@ -35,8 +35,12 @@ function getWatsonFromUrl(url, res){
     var request = https.get(url, function(response) {
       response.pipe(file);
       var params = {
-        images_file: fs.createReadStream('tmp.jpg')
+        images_file: fs.createReadStream('tmp.jpg'),
+        parameters: {
+          classifiers_ids: ['BoggiClassify_1105946695']
+        }
       };
+      console.log(url);
       visualRecognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
         if (errWatson){
@@ -51,7 +55,10 @@ function getWatsonFromUrl(url, res){
     var request = http.get(url, function(response) {
       response.pipe(file);
       var params = {
-        images_file: fs.createReadStream('tmp.jpg')
+        images_file: fs.createReadStream('tmp.jpg'),
+        parameters: {
+          classifiers_ids: ['BoggiClassify_1105946695']
+        }
       };
       visualRecognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
