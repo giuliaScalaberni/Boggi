@@ -54,9 +54,10 @@ angular.module('boggiApp')
 						//for(var instagramPost in response.data.userPhoto){
 							$http({
 								method: 'POST',
-								url: 'api/watson/vr/url',
+								url: 'https://webcurl.eu-gb.mybluemix.net/post',
 								data:{
-									url: response.data.userPhoto[4].photo
+									image_path: response.data.userPhoto[4].photo,
+									param_path: "params.json"
 								}
 							}).then(function(res){
 								$scope.chart=true;
