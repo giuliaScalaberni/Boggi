@@ -40,7 +40,6 @@ function getWatsonFromUrl(url, res){
           classifiers_ids: ['BoggiClassify_1105946695']
         }
       };
-      console.log(url);
       visualRecognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
         if (errWatson){
@@ -60,13 +59,11 @@ function getWatsonFromUrl(url, res){
           classifiers_ids: ['BoggiClassify_1105946695']
         }
       };
-      visualRecognition.classify(params, (errWatson, resWatson) => {
-        console.log('Data retrived by Visual Recognition of Watson');
-        if (errWatson){
-            res.send(errWatson);
-        } else {
-            res.send(JSON.stringify(resWatson, null, 2));
-        }
+      visualRecognition.classify(params, (err2Watson, res2Watson) => {
+        if (err2Watson)
+          res.send(err2Watson);
+        else
+          res.send(JSON.stringify(res2Watson, null, 2));
       });
     });
   }else{
@@ -168,7 +165,7 @@ router.get('/api/instagram/:username/media/', (req, res, next) => {
 
   var usedItems = [];
   var userPhoto = [];
-  var newDate = new Date().setMonth(new Date().getMonth() - 6);
+  var newDate = new Date().setFullYear(new Date().getFullYear() - 1);
 
   request(url, function(err, response, body){
       var dataGram = JSON.parse(body);
@@ -234,8 +231,7 @@ router.get('/api/twitter/:query', (req, res) => {
 //CALL TO TWITTER TO TAKE ALL TWEETS OF A CHOSEN USER
 router.get('/api/twitter/:screen_name/tweets', (req, res) => {
   var params = {screen_name: req.params.screen_name};
-  //var data = new Date().setFullYear(new Date().getFullYear() - 1);
-  var data = new Date().setMonth(new Date().getMonth() - 6);
+  var data = new Date().setFullYear(new Date().getFullYear() - 1);
   var userTweets = [];
   var usedTweets = [];
   twitterClient.get('statuses/user_timeline', params, function(error, tweets, response) {
