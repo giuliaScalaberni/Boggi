@@ -34,17 +34,19 @@ angular.module('boggiApp')
 		       return str;
 		   }
 
+			 $scope.watsonVrInfo=[]
+
 			 $scope.chooseInstagramProfile = function(instagramUsername){
 					$http({
 						method: 'GET',
 						url: 'api/instagram/' + instagramUsername + '/media'
 					}).then(function(response){
-						//for(var instagramPost in response.data){
+						for(var instagramPost in response.data.userPhoto){
 							$http({
 								method: 'POST',
-								url: 'api/watson/url',
+								url: 'api/watson/vr/url',
 								data:{
-									url: response.data[0].photo
+									url: response.data.userPhoto[instagramPost].photo
 								}
 							}).then(function(res){
 									console.log(res);
@@ -52,7 +54,7 @@ angular.module('boggiApp')
 							}, function(res){
 								console.log(res);
 							});
-						//}
+						}
 					}, function(response){
 						console.log(response);
 					});
