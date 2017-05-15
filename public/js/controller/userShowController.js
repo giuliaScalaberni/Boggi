@@ -24,9 +24,33 @@ angular.module('boggiApp')
 		       return str;
 		   }
 
+			 $scope.chooseInstagramProfile = function(instagramUsername){
+					$http({
+						method: 'GET',
+						url: 'api/instagram/' + instagramUsername + '/media'
+					}).then(function(response){
+						//for(var instagramPost in response.data){
+							$http({
+								method: 'POST',
+								url: 'api/watson/url',
+								data:{
+									url: response.data[0].photo
+								}
+							}).then(function(res){
+									console.log(res);
+									$scope.watsonInfo = res;
+							}, function(res){
+								console.log(res);
+							});
+						//}
+					}, function(response){
+						console.log(response);
+					});
+			 };
+
 		   $http({
                 method: 'GET',
-                url: '/api/v1/user/' + $stateParams.userEmail,
+                url: '/api/v1/user/' + $stateParams.userEmail
             }).then(function(response) {
 								var i=0;
                 $scope.done = true;
@@ -91,6 +115,14 @@ angular.module('boggiApp')
 								    return dateA - dateB;
 								});
 								$scope.prize=Number(($scope.prize/i).toFixed(2));
+								$http({
+									method: 'GET',
+									url: 'api/instagram/' + $scope.data.DemandwareCustomer.FirstName + ' ' + $scope.data.DemandwareCustomer.LastName
+								}).then(function(response){
+									$scope.instagramProfiles = response.data.data;
+								}, function(response){
+									console.log(response);
+								})
             }, function(response) {
                 console.log(response);
                 $scope.done = true;
@@ -101,7 +133,7 @@ angular.module('boggiApp')
 									type: 'line'
 								},
 								title:{
-									text: 'Price'
+									text: 'History'
 								},
 								plotOptions: {
 			            area: {
