@@ -1,6 +1,4 @@
 <button ng-if="isTwitterSelected" class="btn btn-primary" style="float:right;" ng-click="backToTwitterIndex()">Torna indietro</button>
-<h3><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Twitter Profiles </h3>
-<br>
 <br>
 <h3 class="text-center"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Twitter Profile</h3>
 <div class="col-md-4" ng-if="!isTwitterSelected" ng-repeat="twitterProfile in twitterProfiles" class="row" ng-click="chooseTwitterProfile(twitterProfile.screen_name)">
