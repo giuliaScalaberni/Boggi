@@ -51,13 +51,12 @@ angular.module('boggiApp')
 					}).then(function(response){
 						$scope.isInstagramSelected = true;
 						if(response.data['userPhoto']){
-						//for(var instagramPost in response.data.userPhoto){
+						for(var i = 0; i < 2; i++){
 							$http({
 								method: 'POST',
-								url: 'https://webcurl.eu-gb.mybluemix.net/post',
+								url: 'api/watson/vr/url',
 								data:{
-									image_path: response.data.userPhoto[4].photo,
-									param_path: "params.json"
+									url: response.data.userPhoto[i].photo
 								}
 							}).then(function(res){
 								$scope.chart=true;
@@ -71,7 +70,7 @@ angular.module('boggiApp')
 							}, function(res){
 								console.log(res);
 							});
-						//}
+						}
 					}
 					}, function(response){
 						console.log(response);
