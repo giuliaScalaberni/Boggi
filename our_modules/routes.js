@@ -186,7 +186,7 @@ router.get('/api/instagram/:username/media/', (req, res, next) => {
         console.log('Data obtained from www.instagram.com');
       }
       else {
-        res.send('{}');
+        res.send([]);
         console.log('No items for the specified username');
       }
   });
@@ -213,8 +213,8 @@ router.get('/api/twitter/:query', (req, res) => {
 });
 
 //CALL TO TWITTER TO TAKE ALL TWEETS OF A CHOSEN USER
-router.get('/api/twitter/:user_id/tweets', (req, res) => {
-  var params = {user_id: req.params.user_id};
+router.get('/api/twitter/:screen_name/tweets', (req, res) => {
+  var params = {screen_name: req.params.screen_name};
   //var data = new Date().setFullYear(new Date().getFullYear() - 1);
   var data = new Date().setMonth(new Date().getMonth() - 6);
   var userTweets = [];
@@ -228,6 +228,7 @@ router.get('/api/twitter/:user_id/tweets', (req, res) => {
         }
         usedTweets.push(tweets[i]);
       }
+      var StringTweets = '';
       usedTweets.forEach(function(element){
         var urlPhoto = [];
         if(element.entities["media"]){
@@ -237,6 +238,7 @@ router.get('/api/twitter/:user_id/tweets', (req, res) => {
             }
           });
         }
+
         userTweets.push({
           'name' : element.user.name,
           'text' : element.text,
@@ -244,6 +246,7 @@ router.get('/api/twitter/:user_id/tweets', (req, res) => {
           'photo' : urlPhoto,
           'place' : element.place
         });
+
       });
       res.send(userTweets);
     }
