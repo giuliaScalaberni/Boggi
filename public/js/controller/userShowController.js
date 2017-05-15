@@ -36,7 +36,7 @@ angular.module('boggiApp')
 		       var str = parsedDate.toDateString();
 		       return str;
 		   }
-			 
+
 			 $scope.instagramData = [];
 			 $scope.isInstagramSelected = false;
 			 $scope.watsonVrInfos=[];
@@ -47,12 +47,12 @@ angular.module('boggiApp')
 						url: 'api/instagram/' + instagramUsername + '/media'
 					}).then(function(response){
 						$scope.isInstagramSelected = true;
-						for(var instagramPost in response.data.userPhoto){
+						//for(var instagramPost in response.data.userPhoto){
 							$http({
 								method: 'POST',
 								url: 'api/watson/vr/url',
 								data:{
-									url: response.data.userPhoto[instagramPost].photo
+									url: response.data.userPhoto[0].photo
 								}
 							}).then(function(res){
 								/*!!!!IMPORTANT CHANGE!!!*/
@@ -65,7 +65,7 @@ angular.module('boggiApp')
 							}, function(res){
 								console.log(res);
 							});
-						}
+						//}
 					}, function(response){
 						console.log(response);
 					});
