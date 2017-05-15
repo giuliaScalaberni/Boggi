@@ -165,6 +165,7 @@ router.get('/api/instagram/:username/media/', (req, res, next) => {
 
   request(url, function(err, response, body){
       var dataGram = JSON.parse(body);
+      var StringMedia = '';
       if(dataGram.items.length > 0){
         for(var i = 0; i < dataGram.items.length; i++){
           var data = new Date(dataGram.items[i].created_time * 1000);
@@ -177,12 +178,14 @@ router.get('/api/instagram/:username/media/', (req, res, next) => {
           }
         }
         usedItems.forEach(function(element){
-          if(element.caption != null)
+          if(element.caption != null){
             userPhoto.push({
               username: element.user.username,
               photo: element.images.thumbnail.url,
               text: element.caption.text
             });
+            StringMedia += element.caption.text + '\n';
+          }
           else
             userPhoto.push({
               username: element.user.username,
@@ -190,7 +193,7 @@ router.get('/api/instagram/:username/media/', (req, res, next) => {
               text: ''
             });
         });
-        res.send(userPhoto);
+        res.send({userPhoto, StringMedia});
         console.log('Data obtained from Instagram');
       }
       else {
