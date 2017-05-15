@@ -1,4 +1,4 @@
-<div  ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
+<div  ng-if="done && (data.DemandwareCustomer.CustomerID != null || !data.Orders.isEmpty())" class="container">
 <div class="row">
   <br>
 <div class="col-md-4">
@@ -76,7 +76,7 @@
            <div class="panel-heading"><h3><span ng-hide="gift" class="glyphicon glyphicon-gift" aria-hidden="true"></span><i> {{parseDate(order.DataOrdine)}}</i></h3></div>
         <div class="container" ng-repeat="item in order.OrderBoggiItems">
           <div class="panel-body col-sm-2">
-            <img ng-src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
+            <img ng-src='http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg' class="img-responsive thumb" alt="{{item.CodArticolo}}">
          </div>
          <div class="panel-body col-md-6">
            <h3><small>Description <b>{{item.DescrizioneArt}}</b></small></h3>
@@ -86,7 +86,6 @@
               <b>{{item.LastSeason}}</b></small></h3>
            <h3><small>Amount <b>{{item.Quantita}}</b></small></h3>
            <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
-           <h3><small>Discounted Price €<b>{{item.PrezzoScontato}}</b></small></h3>
            <h3><small>Group Description <b>{{item.GroupDescription}}</b></small></h3>
          </div>
        </div>
@@ -120,7 +119,7 @@
     </style>
 
         <div class="m-b-md">
-          <div ng-if="done && data.DemandwareCustomer.CustomerID == null" class="container"><h1>This customer isn't in the database</h1></div>
+          <div ng-if="done && (data.DemandwareCustomer.CustomerID == null && data.Orders.isEmpty())" class="container"><h1>This customer isn't in the database</h1></div>
 
           <div ng-if="!done">
             <div class="loader center"></div>
