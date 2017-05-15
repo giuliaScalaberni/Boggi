@@ -219,7 +219,7 @@ angular.module('boggiApp')
 
 						$scope.priceChartConfig = {
 								chart: {
-									type: 'line'
+									type: 'area'
 								},
 								title:{
 									text: 'History'
@@ -265,6 +265,7 @@ angular.module('boggiApp')
 			        }]
 						};
 
+
 						$scope.typeChartConfig = {
 							chart: {
 								type: 'pie'
@@ -276,8 +277,11 @@ angular.module('boggiApp')
 					        name: 'Product amount',
 					        colorByPoint: true,
 					        data: $scope.types
-					    }]
+					    }],
+							colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+
 						};
+
 
 						$scope.twitterChartConfig={
 							chart:{
