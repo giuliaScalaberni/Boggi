@@ -97,6 +97,7 @@ angular.module('boggiApp')
 									var labels = $scope.watsonNluInfo[info].label.split("/");
 									$scope.twitterData.push({name: labels[labels.length - 1], y:$scope.watsonNluInfo[info].score * 100})
 								}
+								
 							}, function(res){
 								console.log(res);
 							});
