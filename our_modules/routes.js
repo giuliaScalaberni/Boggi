@@ -22,10 +22,9 @@ var twitterClient = new twitter({
   access_token_secret: 'v3SwPVh3anLVGmVibNPNAn01khaJMNKcwLWvujgDFjuiH'
 });
 
-function getWatsonFromUrl(url){
+function getWatsonFromUrl(url, res){
   var file = fs.createWriteStream('tmp.jpg');
   if(url.indexOf("https") !== -1){
-    console.log("https");
     var request = https.get(url, function(response) {
       response.pipe(file);
       var params = {
@@ -33,14 +32,14 @@ function getWatsonFromUrl(url){
       };
       visual_recognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
-        if (errWatson)
-          return errWatson;
-        else
-          return JSON.stringify(resWatson, null, 2);
+        if (errWatson){
+            res.send(errWatson);
+        } else {
+            res.send(JSON.stringify(resWatson, null, 2));
+        }
       });
     });
   } else if(url.indexOf("http") !== -1){
-    console.log("http");
     var request = http.get(url, function(response) {
       response.pipe(file);
       var params = {
@@ -48,15 +47,16 @@ function getWatsonFromUrl(url){
       };
       visual_recognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
-        if (errWatson)
-          return errWatson;
-        else
-          return JSON.stringify(resWatson, null, 2);
+        if (errWatson){
+            res.send(errWatson);
+        } else {
+            res.send(JSON.stringify(resWatson, null, 2));
+        }
       });
     });
   }else{
     console.log(url);
-    return;
+    res.send();
   }
 }
 
@@ -251,11 +251,11 @@ router.get('/api/twitter/:user_id/tweets', (req, res) => {
 });
 
 router.get('/api/watson/product/:productCode', (req, res) => {
-  res.send(getWatsonFromUrl('http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/' + req.params.productCode + ".jpg"));
+  getWatsonFromUrl('http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/' + req.params.productCode + ".jpg", res);
 });
 
 router.post('/api/watson/url', (req, res) => {
-  res.send(getWatsonFromUrl(req.body.url));
+  getWatsonFromUrl(req.body.url, res);
 });
 
 //------------------------------------------------------------------------------
