@@ -53,12 +53,6 @@
     <highchart config="priceChartConfig"></highchart>
 <hr>
 <h1><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <b>Orders</b> </h1>
-<div class="form-group row">
-<label for="sel1" class="col-6 col-form-label"><h3><small>Select product</small></h3></label>
-
-  <select class="col-6 form-control" id="sel1" >
-    <option ng-repeat="prod in types">{{prod.name}}</option>
-  </select>
 
 </div>
     <br>
@@ -80,41 +74,6 @@
            <h3><small>Group Description <b>{{item.GroupDescription}}</b></small></h3>
          </div>
        </div>
-        </div>
-    </div>
-</div>
-<div class="flex-center position-ref full-height">
-    <div class="content">
-    <style>
-    .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-    margin: auto;
-    }
-    Try it Yourself »
-
-    @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-    }
-
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
-    </style>
-
-        <div class="m-b-md">
-          <div ng-if="done && (data.DemandwareCustomer.CustomerID == null && data.Orders.length <= 0)" class="container"><h1>This customer isn't in the database</h1></div>
-
-          <div ng-if="!done">
-            <div class="loader center"></div>
-          </div>
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ angular.module('boggiApp')
 
 			$scope.tabs = [{name: "Customer data", url: "views/customerUserPartial.html"},
 			 							 {name: "Instagram data", url: "views/instagramUserPartial.html"},
-										 {name: "Twitter data", url: "views/customerUserPartial.html"}];
+										 {name: "Twitter data", url: "views/twitterUserPartial.html"}];
 
 			$scope.changeTab = function(url){
 				$scope.partial = url;
@@ -19,8 +19,11 @@ angular.module('boggiApp')
 		   $scope.types = [];
 			 $scope.prices = [];
 			 $scope.prize=0;
-
 		   $scope.infos = [];
+			 $scope.items = [];
+			 $scope.sel=[];
+
+
 		   $scope.parseDate = function(date){
 		       var ms = parseInt(date.slice(6, 19), 10);
 		       var parsedDate = new Date(ms);
@@ -33,14 +36,17 @@ angular.module('boggiApp')
 		       var str = parsedDate.toDateString();
 		       return str;
 		   }
-
-			 $scope.watsonVrInfo=[]
+			 
+			 $scope.instagramData = [];
+			 $scope.isInstagramSelected = false;
+			 $scope.watsonVrInfos=[];
 
 			 $scope.chooseInstagramProfile = function(instagramUsername){
 					$http({
 						method: 'GET',
 						url: 'api/instagram/' + instagramUsername + '/media'
 					}).then(function(response){
+						$scope.isInstagramSelected = true;
 						for(var instagramPost in response.data.userPhoto){
 							$http({
 								method: 'POST',
@@ -49,12 +55,48 @@ angular.module('boggiApp')
 									url: response.data.userPhoto[instagramPost].photo
 								}
 							}).then(function(res){
-									console.log(res);
-									$scope.watsonInfo = res;
+								/*!!!!IMPORTANT CHANGE!!!*/
+									$scope.watsonVrInfos.push(res.data.images[0].classifiers[0].classes);
+									for(var watsonVrInfo in $scope.watsonVrInfos){
+										for(var info in $scope.watsonVrInfos[watsonVrInfo]){
+											$scope.instagramData.push({name: $scope.watsonVrInfos[watsonVrInfo][info].class, y: $scope.watsonVrInfos[watsonVrInfo][info].score * 100})
+										}
+									}
 							}, function(res){
 								console.log(res);
 							});
 						}
+					}, function(response){
+						console.log(response);
+					});
+			 };
+
+			 $scope.twitterData=[];
+			 $scope.isTwitterSelected = false;
+			 $scope.watsonNluInfo=[];
+
+			 $scope.chooseTwitterProfile = function(twitterUsername){
+					$http({
+						method: 'GET',
+						url: 'api/twitter/' + twitterUsername + '/tweets'
+					}).then(function(response){
+						$scope.isTwitterSelected = true;
+							$http({
+								method: 'POST',
+								url: 'api/watson/nlu',
+								data:{
+									text: response.data.StringTweets
+								}
+							}).then(function(res){
+								console.log(res);
+								$scope.watsonNluInfo = res.data.categories;
+								for(var info in $scope.watsonNluInfo){
+									var labels = $scope.watsonNluInfo[info].label.split("/");
+									$scope.twitterData.push({name: labels[labels.length - 1], y:$scope.watsonNluInfo[info].score * 100})
+								}
+							}, function(res){
+								console.log(res);
+							});
 					}, function(response){
 						console.log(response);
 					});
@@ -71,6 +113,9 @@ angular.module('boggiApp')
 								if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
 									$scope.birthday=false;
 								}
+
+
+
 								var start = new Date(response.data.DemandwareCustomer.CreationDate);
 								var end = new Date();
 
@@ -124,11 +169,15 @@ angular.module('boggiApp')
                         }
                     }
                 }
+
+								$scope.items=$scope.types;
+								$scope.items.push({name: "All",y:0});
 								$scope.prices.sort(function(a, b) {
 								    var dateA = new Date(a[0]), dateB = new Date(b[0]);
 								    return dateA - dateB;
 								});
 								$scope.prize=Number(($scope.prize/i).toFixed(2));
+
 								$http({
 									method: 'GET',
 									url: 'api/instagram/' + $scope.data.DemandwareCustomer.FirstName + ' ' + $scope.data.DemandwareCustomer.LastName
@@ -136,7 +185,16 @@ angular.module('boggiApp')
 									$scope.instagramProfiles = response.data.data;
 								}, function(response){
 									console.log(response);
-								})
+								});
+								$http({
+									method: 'GET',
+									url: 'api/twitter/' + $scope.data.DemandwareCustomer.FirstName + ' ' + $scope.data.DemandwareCustomer.LastName
+								}).then(function(response){
+									console.log(response)
+									$scope.twitterProfiles = response.data;
+								}, function(response){
+									console.log(response);
+								});
             }, function(response) {
                 console.log(response);
                 $scope.done = true;
@@ -204,4 +262,65 @@ angular.module('boggiApp')
 					    }]
 						};
 
+						$scope.twitterChartConfig={
+							chart:{
+								type: 'column'
+							},
+							title:{
+								text: 'Twitter'
+							},
+							xAxis: {
+					        type: 'category'
+					    },
+							yAxis:{
+								title:{
+									text: 'Score(%)'
+								}
+							},
+							plotOptions: {
+					        series: {
+					            borderWidth: 0,
+					            dataLabels: {
+					                enabled: true,
+					                format: '{point.y:.1f}%'
+					            }
+					        }
+					    },
+							series: [{
+								name: 'Preferences',
+								colorByPoint: true,
+								data: $scope.twitterData
+							}]
+						}
+
+						$scope.instagramChartConfig={
+							chart:{
+								type: 'column'
+							},
+							title:{
+								text: 'Instagram'
+							},
+							xAxis: {
+					        type: 'Classes'
+					    },
+							yAxis:{
+								title:{
+									text: 'Score(%)'
+								}
+							},
+							plotOptions: {
+					        series: {
+					            borderWidth: 0,
+					            dataLabels: {
+					                enabled: true,
+					                format: '{point.y:.1f}%'
+					            }
+					        }
+					    },
+							series: [{
+								name: 'Classes',
+								colorByPoint: true,
+								data: $scope.instagramData
+							}]
+						}
 		});
