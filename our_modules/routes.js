@@ -6,7 +6,13 @@ const request = require('request');
 
 //WATSON
 const watson = require('watson-developer-cloud');
-var visual_recognition = watson.visual_recognition({
+var natural_language_understandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
+var naturalLanguageUnderstanding = new natural_language_understandingV1({
+  'username': '08344669-8c91-4e38-b836-979c16b18a61',
+  'password': 'wroWRXcoD3SS',
+  'version_date': '2017-02-27'
+});
+var visualRecognition = watson.visual_recognition({
   api_key: 'f60edd5ed1307e2872c39a45e8d9a9a52fbfc7ec',
   version: 'v3',
   version_date: '2016-05-20'
@@ -31,7 +37,7 @@ function getWatsonFromUrl(url, res){
       var params = {
         images_file: fs.createReadStream('tmp.jpg')
       };
-      visual_recognition.classify(params, (errWatson, resWatson) => {
+      visualRecognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
         if (errWatson){
             res.send(errWatson);
@@ -47,7 +53,7 @@ function getWatsonFromUrl(url, res){
       var params = {
         images_file: fs.createReadStream('tmp.jpg')
       };
-      visual_recognition.classify(params, (errWatson, resWatson) => {
+      visualRecognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
         if (errWatson){
             res.send(errWatson);
@@ -115,6 +121,7 @@ router.get('/api/v1/user/:email', (req, res, next) => {
 
 router.get('/api/instagram/:query', (req, res, next) => {
   //var url="https://api.instagram.com/v1/users/search?q=jack&access_token=ACCESS-TOKEN";
+  console.log('Data retrived by Instagram');
   res.send({ data: [
               {
                 "username": "joelaskee",
@@ -177,7 +184,7 @@ router.get('/api/instagram/:username/media/', (req, res, next) => {
           });
         });
         res.send(userPhoto);
-        console.log('Data obtained from www.instagram.com');
+        console.log('Data obtained from Instagram');
       }
       else {
         res.send([]);
@@ -201,6 +208,7 @@ router.get('/api/twitter/:query', (req, res) => {
           'location' : element.location
         });
       });
+      console.log('Data retrived by Twitter');
       res.send(user);
     }
   });
@@ -247,12 +255,36 @@ router.get('/api/twitter/:screen_name/tweets', (req, res) => {
   });
 });
 
-router.get('/api/watson/product/:productCode', (req, res) => {
+router.get('/api/watson/vr/product/:productCode', (req, res) => {
   getWatsonFromUrl('http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/' + req.params.productCode + ".jpg", res);
 });
 
-router.post('/api/watson/url', (req, res) => {
+router.post('/api/watson/vr/url', (req, res) => {
   getWatsonFromUrl(req.body.url, res);
+});
+
+router.post('/api/watson/nlu', (req, res) => {
+  var parameters = {
+    'text': req.body.text,
+    'features': {
+      'entities': {
+        'emotion': true,
+        'sentiment': true
+      },
+      'categories': {},
+      'keywords': {
+        'emotion': true,
+        'sentiment': true
+      }
+    }
+  };
+
+  naturalLanguageUnderstanding.analyze(parameters, function(err, response) {
+    if (err)
+      res.send(err);
+    else
+      res.send(JSON.stringify(response, null, 2));
+  });
 });
 
 //------------------------------------------------------------------------------
