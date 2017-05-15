@@ -1,5 +1,5 @@
 <button ng-if="isInstagramSelected" class="btn btn-primary" style="float:right;" ng-click="backToInstagramIndex()">Torna indietro</button>
-<h3><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Instagram Profiles </h3>
+<h3 class="text-center"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Instagram Profiles </h3>
 <br>
 <div class="col-md-4" ng-if="!isInstagramSelected" ng-repeat="instagramProfile in instagramProfiles"  ng-click="chooseInstagramProfile(instagramProfile.username)">
     <div class="panel panel-default">
