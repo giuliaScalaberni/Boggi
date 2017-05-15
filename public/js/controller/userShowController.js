@@ -22,6 +22,7 @@ angular.module('boggiApp')
 		   $scope.infos = [];
 			 $scope.items = [];
 			 $scope.sel=[];
+			 $scope.chart=false;
 
 
 		   $scope.parseDate = function(date){
@@ -36,7 +37,7 @@ angular.module('boggiApp')
 		       var str = parsedDate.toDateString();
 		       return str;
 		   }
-			 
+
 			 $scope.instagramData = [];
 			 $scope.isInstagramSelected = false;
 			 $scope.watsonVrInfos=[];
@@ -55,6 +56,7 @@ angular.module('boggiApp')
 									url: response.data.userPhoto[instagramPost].photo
 								}
 							}).then(function(res){
+								$scope.chart=true;
 								/*!!!!IMPORTANT CHANGE!!!*/
 									$scope.watsonVrInfos.push(res.data.images[0].classifiers[0].classes);
 									for(var watsonVrInfo in $scope.watsonVrInfos){
@@ -88,6 +90,7 @@ angular.module('boggiApp')
 									text: response.data.StringTweets
 								}
 							}).then(function(res){
+
 								console.log(res);
 								$scope.watsonNluInfo = res.data.categories;
 								for(var info in $scope.watsonNluInfo){
@@ -171,7 +174,6 @@ angular.module('boggiApp')
                 }
 
 								$scope.items=$scope.types;
-								$scope.items.push({name: "All",y:0});
 								$scope.prices.sort(function(a, b) {
 								    var dateA = new Date(a[0]), dateB = new Date(b[0]);
 								    return dateA - dateB;
