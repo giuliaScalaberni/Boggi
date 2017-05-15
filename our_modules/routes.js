@@ -128,7 +128,7 @@ router.get('/api/instagram/:query', (req, res, next) => {
                 "first_name": "Francesco",
                 "profile_picture": "https://scontent.cdninstagram.com/t51.2885-19/s150x150/12628133_543013765870438_2074250366_a.jpg",
                 "id": "466629055",
-                "last_name": "falaschi"
+                "last_name": "Falaschi"
               },
               {
                 "username" : "falaschif",
@@ -177,11 +177,18 @@ router.get('/api/instagram/:username/media/', (req, res, next) => {
           }
         }
         usedItems.forEach(function(element){
-          userPhoto.push({
-            username: element.user.username,
-            photo: element.images.thumbnail.url,
-            text: element.caption.text
-          });
+          if(element.caption != null)
+            userPhoto.push({
+              username: element.user.username,
+              photo: element.images.thumbnail.url,
+              text: element.caption.text
+            });
+          else
+            userPhoto.push({
+              username: element.user.username,
+              photo: element.images.thumbnail.url,
+              text: ''
+            });
         });
         res.send(userPhoto);
         console.log('Data obtained from Instagram');
