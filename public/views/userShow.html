@@ -52,6 +52,14 @@
     <br>
     <highchart config="priceChartConfig"></highchart>
 <hr>
+<div class="container">
+  <div ng-repeat="instagramProfile in instagramProfiles" class="row" ng-click="chooseInstagramProfile(instagramProfile.username)">
+    <img ng-src="{{instagramProfile.profile_picture}}" class="img-responsive col-md-3"></img>
+    <h4 class="col-md-3"><small>Username: </small>{{instagramProfile.username}}</h4>
+  </div>
+</div>
+{{watsonInfo}}
+<hr>
     <h1><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <b>Orders</b></h1>
     <br>
     <div class="container" ng-repeat="order in data.Orders">
@@ -103,7 +111,7 @@
           <div ng-if="done && data.DemandwareCustomer.CustomerID == null" class="container"><h1>This customer isn't in the database</h1></div>
 
           <div ng-if="!done">
-          <div class="loader center"></div>
+            <div class="loader center"></div>
           </div>
         </div>
     </div>
