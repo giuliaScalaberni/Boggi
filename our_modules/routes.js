@@ -85,6 +85,23 @@ router.get('/api/v1/user/:email', (req, res, next) => {
   }
 });
 
+function getWatsonFromUrl(url){
+  var file = fs.createWriteStream('tmp.jpg');
+  var request = http.get(url, function(response) {
+    response.pipe(file);
+    var params = {
+      images_file: fs.createReadStream('tmp.jpg')
+    };
+    visual_recognition.classify(params, (errWatson, resWatson) => {
+      console.log('Data retrived by Visual Recognition of Watson');
+      if (errWatson)
+        return errWatson;
+      else
+        return JSON.stringify(resWatson, null, 2);
+    });
+  });
+}
+
 router.get('/api/instagram/:username', (req, res, next) => {
   res.send({result: 400});
 });
@@ -99,20 +116,7 @@ router.get('/api/twitter/:query', (req, res) => {
 });
 
 router.get('/api/watson/product/:productCode', (req, res) => {
-  var file = fs.createWriteStream('tmp.jpg');
-  var request = http.get('http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/' + req.params.productCode + ".jpg", function(response) {
-    response.pipe(file);
-    var params = {
-      images_file: fs.createReadStream('tmp.jpg')
-    };
-    visual_recognition.classify(params, (errWatson, resWatson) => {
-      console.log('Data retrived by Visual Recognition of Watson');
-      if (errWatson)
-        res.send(errWatson);
-      else
-        res.send(JSON.stringify(resWatson, null, 2));
-    });
-  });
+  res.send(getWatsonFromUrl('http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/' + req.params.productCode + ".jpg"));
 });
 
 //------------------------------------------------------------------------------
