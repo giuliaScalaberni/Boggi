@@ -248,9 +248,9 @@ router.get('/api/twitter/:screen_name/tweets', (req, res) => {
           'photo' : urlPhoto,
           'place' : element.place
         });
-
+        StringTweets += element.text + '\n';
       });
-      res.send(userTweets);
+      res.send({ userTweets, StringTweets });
     }
   });
 });
