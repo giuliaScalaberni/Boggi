@@ -1,10 +1,20 @@
 angular.module('boggiApp')
 
 		.controller('userShowController', function($scope, $stateParams, $http){
-			$scope.date= new Date();
-			 $scope.birthday=1;
-			 $scope.gift=1;
-			 $scope.card=1;
+
+			$scope.tabs = [{name: "Customer data", url: "views/customerUserPartial.html"},
+			 							 {name: "Instagram data", url: "views/instagramUserPartial.html"},
+										 {name: "Twitter data", url: "views/customerUserPartial.html"}];
+
+			$scope.changeTab = function(url){
+				$scope.partial = url;
+			};
+
+			$scope.partial = "views/customerUserPartial.html";
+			 $scope.date= new Date();
+			 $scope.birthday=true;
+			 $scope.gift=true;
+			 $scope.card=true;
 		   $scope.done = false;
 		   $scope.types = [];
 			 $scope.prices = [];
@@ -57,7 +67,7 @@ angular.module('boggiApp')
 								$scope.OrderDate=new Date(0);
                 $scope.data = response.data;
 								if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
-									$scope.birthday=0;
+									$scope.birthday=false;
 								}
 								var start = new Date(response.data.DemandwareCustomer.CreationDate);
 								var end = new Date();
@@ -66,9 +76,11 @@ angular.module('boggiApp')
 								var diff = new Date(end - start);
 
 								// get days
-								var days = diff/1000/60/60/24
+								var days = diff/1000/60/60/24;
 								if (days>365){
-									$scope.card=0;
+									if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
+										$scope.card=false;
+									}
 								}
 								for(var order in response.data.Orders){
                     for(var item in response.data.Orders[order].OrderBoggiItems){
@@ -87,7 +99,7 @@ angular.module('boggiApp')
 												}
 											}
 											else {
-												$scope.gift=0;
+												$scope.gift=false;
 											}
 										}
                 }
