@@ -11,6 +11,7 @@ angular.module('boggiApp')
 			 $scope.prize=0;
 		   $scope.infos = [];
 			 $scope.items = [];
+			 $scope.sel=[];
 
 
 		   $scope.parseDate = function(date){
@@ -27,8 +28,36 @@ angular.module('boggiApp')
 		   }
 
 			 $scope.changeProd=function(){
-				 console.log(this.prod.name);
-			 }
+				 if(this.prod.name!="All"){
+				 $scope.sel=[];
+				 $scope.choice=this.prod.name;
+
+
+				 for(var order in $scope.data.Orders){
+						 for(var item in $scope.data.Orders[order].OrderBoggiItems){
+							 //for (var obj in response.data.Orders[order].OrderBoggiItems[item]){
+								 console.log($scope.data.Orders[order].OrderBoggiItems[item].GroupDescription);
+							 if ($scope.data.Orders[order].OrderBoggiItems[item].GroupDescription==$scope.choice)
+
+
+								{
+
+												 $scope.sel.push({date:$scope.parseDate($scope.data.Orders[order].DataOrdine), size: $scope.data.Orders[order].OrderBoggiItems[item].DescrizioneArt, size: $scope.data.Orders[order].OrderBoggiItems[item].Taglia});
+										 }
+
+										 }
+
+								 }
+
+								 console.log($scope.sel);
+								 
+
+
+
+}
+
+		 };
+
 
 			 $scope.chooseInstagramProfile = function(instagramUsername){
 					$http({
