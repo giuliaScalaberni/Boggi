@@ -68,7 +68,7 @@ router.get('/api/v1/user/:email', (req, res, next) => {
 });
 
 router.get('/api/instagram/:query', (req, res, next) => {
-  var url="https://api.instagram.com/v1/users/search?q=jack&access_token=ACCESS-TOKEN";
+  //var url="https://api.instagram.com/v1/users/search?q=jack&access_token=ACCESS-TOKEN";
   res.send({ data: [
               {
                 "username": "joelaskee",

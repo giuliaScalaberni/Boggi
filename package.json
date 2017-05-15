@@ -40,8 +40,6 @@
   "dependencies": {
     "body-parser": "1.17.1",
     "express": "4.15.2",
-    "instagram-node": "^0.5.8",
-    "mysql": "^2.13.0",
     "npm-watch": "0.1.9",
     "request": "^2.81.0",
     "twitter": "^1.7.0"
