@@ -67,7 +67,7 @@
            <div class="panel-heading"><h3><span ng-hide="gift" class="glyphicon glyphicon-gift" aria-hidden="true"></span><i> {{parseDate(order.DataOrdine)}}</i></h3></div>
         <div class="container" ng-repeat="item in order.OrderBoggiItems">
           <div class="panel-body col-sm-2">
-            <img ng-src='http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg' class="img-responsive thumb" alt="{{item.CodArticolo}}">
+            <img ng-src='http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg' onError="this.src='file.jpg'" class="img-responsive thumb" alt="{{item.CodArticolo}}">
          </div>
          <div class="panel-body col-md-6">
            <h3><small>Description <b>{{item.DescrizioneArt}}</b></small></h3>
