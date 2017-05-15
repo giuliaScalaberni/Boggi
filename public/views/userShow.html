@@ -60,7 +60,16 @@
 </div>
 {{watsonInfo}}
 <hr>
-    <h1><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <b>Orders</b></h1>
+
+<h1><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <b>Orders</b> </h1>
+<div class="form-group row">
+<label for="sel1" class="col-6 col-form-label"><h3><small>Select product</small></h3></label>
+
+  <select class="col-6 form-control" id="sel1" >
+    <option ng-repeat="prod in types">{{prod.name}}</option>
+  </select>
+
+</div>
     <br>
     <div class="container" ng-repeat="order in data.Orders">
          <div class="panel panel-default">
@@ -71,9 +80,12 @@
          </div>
          <div class="panel-body col-md-6">
            <h3><small>Description <b>{{item.DescrizioneArt}}</b></small></h3>
-           <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
            <h3><small>Size <b>{{item.Taglia}}</b></small></h3>
+           <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
+           <h3><small>Season
+              <b>{{item.LastSeason}}</b></small></h3>
            <h3><small>Amount <b>{{item.Quantita}}</b></small></h3>
+           <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
            <h3><small>Discounted Price €<b>{{item.PrezzoScontato}}</b></small></h3>
            <h3><small>Group Description <b>{{item.GroupDescription}}</b></small></h3>
          </div>
