@@ -1,0 +1,7 @@
+<div class="container">
+  <div ng-repeat="instagramProfile in instagramProfiles" class="row" ng-click="chooseInstagramProfile(instagramProfile.username)">
+    <img ng-src="{{instagramProfile.profile_picture}}" class="img-responsive col-sm-3"></img>
+    <h4 class="col-sm-9"><small>Username: </small>{{instagramProfile.username}}</h4>
+  </div>
+</div>
+{{watsonInfo}}

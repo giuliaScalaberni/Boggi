@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<div  ng-if="done && data.DemandwareCustomer.CustomerID != null" class="container">
+<div  ng-if="done && (data.DemandwareCustomer.CustomerID != null || data.Orders.length > 0)" class="container">
 <div class="row">
   <br>
 <div class="col-md-4">
@@ -53,26 +52,24 @@
     <br>
     <highchart config="priceChartConfig"></highchart>
 <hr>
-<div class="container">
-  <div ng-repeat="instagramProfile in instagramProfiles" class="row" ng-click="chooseInstagramProfile(instagramProfile.username)">
-    <img ng-src="{{instagramProfile.profile_picture}}" class="img-responsive col-md-3"></img>
-    <h4 class="col-md-3"><small>Username </small>{{instagramProfile.username}}</h4>
-  </div>
-</div>
-{{watsonInfo}}
-<hr>
-
 <h1><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <b>Orders</b> </h1>
-    <br>
+<div class="form-group row">
+<label for="sel1" class="col-6 col-form-label"><h3><small>Select product</small></h3></label>
 
+  <select class="col-6 form-control" id="sel1" >
+    <option ng-repeat="prod in types">{{prod.name}}</option>
+  </select>
+
+</div>
+    <br>
     <div class="container" ng-repeat="order in data.Orders">
          <div class="panel panel-default">
            <div class="panel-heading"><h3><span ng-hide="gift" class="glyphicon glyphicon-gift" aria-hidden="true"></span><i> {{parseDate(order.DataOrdine)}}</i></h3></div>
         <div class="container" ng-repeat="item in order.OrderBoggiItems">
           <div class="panel-body col-sm-2">
-            <img ng-src="http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg" class="img-responsive thumb" alt="{{item.CodArticolo}}">
+            <img ng-src='http://demandware.edgesuite.net/bbbs_prd/on/demandware.static/-/Sites-BoggiCatalog/default/images/medium/{{item.CodArticolo}}.jpg' onError="this.src='file.jpg'" class="img-responsive thumb" alt="{{item.CodArticolo}}">
          </div>
-         <div id="order" class="panel-body col-md-6">
+         <div class="panel-body col-md-6">
            <h3><small>Description <b>{{item.DescrizioneArt}}</b></small></h3>
            <h3><small>Size <b>{{item.Taglia}}</b></small></h3>
            <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
@@ -113,7 +110,7 @@
     </style>
 
         <div class="m-b-md">
-          <div ng-if="done && data.DemandwareCustomer.CustomerID == null" class="container"><h1>This customer isn't in the database</h1></div>
+          <div ng-if="done && (data.DemandwareCustomer.CustomerID == null && data.Orders.length <= 0)" class="container"><h1>This customer isn't in the database</h1></div>
 
           <div ng-if="!done">
             <div class="loader center"></div>
@@ -121,9 +118,3 @@
         </div>
     </div>
 </div>
-=======
-<ul class="nav nav-tabs">
-  <li ng-repeat="tab in tabs" ng-click="changeTab(tab.url)"><a>{{tab.name}}</a></li>
-</ul>
-<div ng-include="partial"></div>
->>>>>>> 149aa0a807836231fb06efb9f63f3429653db49d
