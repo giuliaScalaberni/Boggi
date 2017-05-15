@@ -22,6 +22,9 @@ angular.module('boggiApp')
 		   $scope.infos = [];
 			 $scope.items = [];
 			 $scope.sel=[];
+			 $scope.chart=false;
+			 $scope.twitterChart=false;
+			 $scope.test = '';
 
 
 		   $scope.parseDate = function(date){
@@ -71,6 +74,19 @@ angular.module('boggiApp')
 					});
 			 };
 
+		 	$scope.backToInstagramIndex = function(){
+				$scope.instagramData = [];
+				$scope.chart = false;
+				$scope.isInstagramSelected = false;
+		 	};
+
+			$scope.backToTwitterIndex = function(){
+				$scope.twitterData = [];
+				$scope.watsonNluInfo=[];
+				$scope.twitterChart = false;
+				$scope.isTwitterSelected = false;
+			}
+
 			 $scope.twitterData=[];
 			 $scope.isTwitterSelected = false;
 			 $scope.watsonNluInfo=[];
@@ -88,12 +104,14 @@ angular.module('boggiApp')
 									text: response.data.StringTweets
 								}
 							}).then(function(res){
+								$scope.twitterChart=true;
 								console.log(res);
 								$scope.watsonNluInfo = res.data.categories;
 								for(var info in $scope.watsonNluInfo){
 									var labels = $scope.watsonNluInfo[info].label.split("/");
 									$scope.twitterData.push({name: labels[labels.length - 1], y:$scope.watsonNluInfo[info].score * 100})
 								}
+
 							}, function(res){
 								console.log(res);
 							});
@@ -171,7 +189,6 @@ angular.module('boggiApp')
                 }
 
 								$scope.items=$scope.types;
-								$scope.items.push({name: "All",y:0});
 								$scope.prices.sort(function(a, b) {
 								    var dateA = new Date(a[0]), dateB = new Date(b[0]);
 								    return dateA - dateB;
