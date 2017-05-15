@@ -9,8 +9,8 @@ angular.module('boggiApp')
 		   $scope.types = [];
 			 $scope.prices = [];
 			 $scope.prize=0;
-
 		   $scope.infos = [];
+			 $scope.items = [];
 		   $scope.parseDate = function(date){
 		       var ms = parseInt(date.slice(6, 19), 10);
 		       var parsedDate = new Date(ms);
@@ -23,6 +23,8 @@ angular.module('boggiApp')
 		       var str = parsedDate.toDateString();
 		       return str;
 		   }
+
+
 
 			 $scope.chooseInstagramProfile = function(instagramUsername){
 					$http({
@@ -59,6 +61,9 @@ angular.module('boggiApp')
 								if ((new Date(response.data.DemandwareCustomer.Birthday)).getMonth()==$scope.date.getMonth()){
 									$scope.birthday=0;
 								}
+
+
+
 								var start = new Date(response.data.DemandwareCustomer.CreationDate);
 								var end = new Date();
 
@@ -110,11 +115,16 @@ angular.module('boggiApp')
                         }
                     }
                 }
+
+								$scope.items=$scope.types;
+								$scope.items.push({name: "All",y:0});
+								console.log($scope.items);
 								$scope.prices.sort(function(a, b) {
 								    var dateA = new Date(a[0]), dateB = new Date(b[0]);
 								    return dateA - dateB;
 								});
 								$scope.prize=Number(($scope.prize/i).toFixed(2));
+
 								$http({
 									method: 'GET',
 									url: 'api/instagram/' + $scope.data.DemandwareCustomer.FirstName + ' ' + $scope.data.DemandwareCustomer.LastName
