@@ -24,26 +24,6 @@ angular.module('boggiApp')
 		       return str;
 		   }
 
-			 $scope.add = function() {
-			    var f = document.getElementById('file').files[0],
-			        r = new FileReader();
-
-			    r.onloadend = function(e) {
-			      var data = e.target.result;
-			      $http({
-							method: 'POST',
-							url: '/api/watson',
-							data: data
-						}).then(function(response){
-							console.log(response);
-						}, function(response){
-							console.log(response);
-						});
-			    }
-
-			    r.readAsBinaryString(f);
-			}
-
 		   $http({
                 method: 'GET',
                 url: '/api/v1/user/' + $stateParams.userEmail,
@@ -107,6 +87,10 @@ angular.module('boggiApp')
                         }
                     }
                 }
+								$scope.prices.sort(function(a, b) {
+								    var dateA = new Date(a[0]), dateB = new Date(b[0]);
+								    return dateA - dateB;
+								});
 								$scope.prize=Number(($scope.prize/i).toFixed(2));
             }, function(response) {
                 console.log(response);
