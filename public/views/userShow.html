@@ -52,7 +52,14 @@
     <br>
     <highchart config="priceChartConfig"></highchart>
 <hr>
-    <h1><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <b>Orders</b></h1>
+    <div>
+      <h1><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> <b>Orders</b> </h1>
+      <label for="sel1">Select product</label>
+      <select class="form-control" id="sel1" >
+        <option ng-repeat="prod in types">{{prod.name}}</option>
+
+      </select>
+  </div>
     <br>
     <div class="container" ng-repeat="order in data.Orders">
          <div class="panel panel-default">
@@ -65,7 +72,8 @@
            <h3><small>Description <b>{{item.DescrizioneArt}}</b></small></h3>
            <h3><small>Size <b>{{item.Taglia}}</b></small></h3>
            <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
-           <h3><small>Season <b>{{item.LastSeason}}</b></small></h3>
+           <h3><small>Season
+              <b>{{item.LastSeason}}</b></small></h3>
            <h3><small>Amount <b>{{item.Quantita}}</b></small></h3>
            <h3><small>Price €<b>{{item.Prezzo}}</b></small></h3>
            <h3><small>Discounted Price €<b>{{item.PrezzoScontato}}</b></small></h3>
