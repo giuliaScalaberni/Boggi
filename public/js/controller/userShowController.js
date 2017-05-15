@@ -55,9 +55,10 @@ angular.module('boggiApp')
 								method: 'POST',
 								url: 'api/watson/vr/url',
 								data:{
-									url: response.data.userPhoto[0].photo
+									url: response.data.userPhoto[4].photo
 								}
 							}).then(function(res){
+								$scope.chart=true;
 								/*!!!!IMPORTANT CHANGE!!!*/
 									$scope.watsonVrInfos.push(res.data.images[0].classifiers[0].classes);
 									for(var watsonVrInfo in $scope.watsonVrInfos){
@@ -106,7 +107,6 @@ angular.module('boggiApp')
 									}
 								}).then(function(res){
 									$scope.twitterChart=true;
-									console.log(res);
 									$scope.watsonNluInfo = res.data.categories;
 									for(var info in $scope.watsonNluInfo){
 										var labels = $scope.watsonNluInfo[info].label.split("/");
@@ -212,7 +212,6 @@ angular.module('boggiApp')
 									method: 'GET',
 									url: 'api/twitter/' + $scope.data.DemandwareCustomer.FirstName + ' ' + $scope.data.DemandwareCustomer.LastName
 								}).then(function(response){
-									console.log(response)
 									$scope.twitterProfiles = response.data;
 								}, function(response){
 									console.log(response);
