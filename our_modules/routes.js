@@ -13,7 +13,7 @@ var naturalLanguageUnderstanding = new natural_language_understandingV1({
   'version_date': '2017-02-27'
 });
 var visualRecognition = watson.visual_recognition({
-  api_key: '6b199f892dd618c030a17cfbf2c529df32fd52a3',
+  api_key: '21b40f0e5d62aa2ed107f63ac803f4d90ab69d6a',
   version: 'v3',
   version_date: '2016-05-20'
 });
@@ -35,10 +35,7 @@ function getWatsonFromUrl(url, res){
     var request = https.get(url, function(response) {
       response.pipe(file);
       var params = {
-        images_file: fs.createReadStream('tmp.jpg'),
-        parameters: {
-          classifiers_ids: ['BoggiClassify_1105946695']
-        }
+        images_file: fs.createReadStream('tmp.jpg')
       };
       visualRecognition.classify(params, (errWatson, resWatson) => {
         console.log('Data retrived by Visual Recognition of Watson');
@@ -54,10 +51,7 @@ function getWatsonFromUrl(url, res){
     var request = http.get(url, function(response) {
       response.pipe(file);
       var params = {
-        images_file: fs.createReadStream('tmp.jpg'),
-        parameters: {
-          classifiers_ids: ['BoggiClassify_1105946695']
-        }
+        images_file: fs.createReadStream('tmp.jpg')
       };
       visualRecognition.classify(params, (err2Watson, res2Watson) => {
         if (err2Watson)
@@ -284,6 +278,17 @@ router.post('/api/watson/nlu', (req, res) => {
     else
       res.send(JSON.stringify(response, null, 2));
   });
+});
+
+router.get('/test', (req, res) => {
+  visualRecognition.listClassifiers({},
+    function(err, response) {
+     if (err)
+      res.send(err);
+     else
+      res.send(JSON.stringify(response, null, 2));
+    }
+  );
 });
 
 //------------------------------------------------------------------------------

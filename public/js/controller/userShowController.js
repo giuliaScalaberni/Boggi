@@ -50,31 +50,25 @@ angular.module('boggiApp')
 						url: 'api/instagram/' + instagramUsername + '/media'
 					}).then(function(response){
 						$scope.isInstagramSelected = true;
-						if(response.data.length > 0){
-							for(var instagramPost in response.data.userPhoto){
-								$http({
-									method: 'POST',
-									url: 'api/watson/vr/url',
-									data:{
-										url: response.data.userPhoto[instagramPost].photo
-									}
-								}).then(function(res){
-									$scope.chart=true;
-									/*!!!!IMPORTANT CHANGE!!!*/
-										$scope.watsonVrInfos.push(res.data.images[0].classifiers[0].classes);
-										for(var watsonVrInfo in $scope.watsonVrInfos){
-											for(var info in $scope.watsonVrInfos[watsonVrInfo]){
-												$scope.instagramData.push({name: $scope.watsonVrInfos[watsonVrInfo][info].class, y: $scope.watsonVrInfos[watsonVrInfo][info].score * 100})
-											}
+						//for(var instagramPost in response.data.userPhoto){
+							$http({
+								method: 'POST',
+								url: 'api/watson/vr/url',
+								data:{
+									url: response.data.userPhoto[0].photo
+								}
+							}).then(function(res){
+								/*!!!!IMPORTANT CHANGE!!!*/
+									$scope.watsonVrInfos.push(res.data.images[0].classifiers[0].classes);
+									for(var watsonVrInfo in $scope.watsonVrInfos){
+										for(var info in $scope.watsonVrInfos[watsonVrInfo]){
+											$scope.instagramData.push({name: $scope.watsonVrInfos[watsonVrInfo][info].class, y: $scope.watsonVrInfos[watsonVrInfo][info].score * 100})
 										}
-								}, function(res){
-									console.log(res);
-								});
-							}
-						}
-						else{
-							$scope.test = 'No items';
-						}
+									}
+							}, function(res){
+								console.log(res);
+							});
+						//}
 					}, function(response){
 						console.log(response);
 					});
