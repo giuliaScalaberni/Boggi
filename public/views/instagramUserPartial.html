@@ -1,9 +1,17 @@
-<div class="container">
-  <div ng-if="!isInstagramSelected" ng-repeat="instagramProfile in instagramProfiles" class="row" ng-click="chooseInstagramProfile(instagramProfile.username)">
-    <img ng-src="{{instagramProfile.profile_picture}}" class="img-responsive col-sm-3"></img>
-    <h4 class="col-sm-9"><small>Username: </small>{{instagramProfile.username}}</h4>
+
+<div class="col-md-4" ng-if="!isInstagramSelected" ng-repeat="instagramProfile in instagramProfiles"  ng-click="chooseInstagramProfile(instagramProfile.username)">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><small>Username: </small>{{instagramProfile.username}}</h4>
+      </div>
+      <div class="panel-body">
+        <img ng-src="{{instagramProfile.profile_picture}}" class="img-responsive"></img>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+
 <div class="col-md-4"></div>
 <div class="col-md-4">
   <highchart ng-show="chart" config="instagramChartConfig"></highchart>

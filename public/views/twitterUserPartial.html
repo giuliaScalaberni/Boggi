@@ -1,12 +1,11 @@
-<div class="container">
-  <div ng-if="!isTwitterSelected" ng-repeat="twitterProfile in twitterProfiles" class="row" ng-click="chooseTwitterProfile(twitterProfile.screen_name)">
-    <img ng-src="{{twitterProfile.profile_image_url}}" class="img-responsive col-sm-3"></img>
-    <h4 class="col-sm-9"><small>Username: </small>{{twitterProfile.screen_name}}</h4>
+  <div class="container">
+    <div ng-if="!isTwitterSelected" ng-repeat="twitterProfile in twitterProfiles" class="row" ng-click="chooseTwitterProfile(twitterProfile.screen_name)">
+      <img ng-src="{{twitterProfile.profile_image_url}}" class="img-responsive col-sm-3"></img>
+      <h4 class="col-sm-9"><small>Username: </small>{{twitterProfile.screen_name}}</h4>
+    </div>
   </div>
-</div>
-
-<div class="col-md-4"></div>
-<div class="col-md-4">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
 <highchart config="twitterChartConfig"></highchart>
 <div ng-if="isTwitterSelected" ng-repeat="obj in watsonNluInfo">
     <h4><small>Label: </small>{{obj.label}}</h4>
