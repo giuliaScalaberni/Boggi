@@ -50,6 +50,7 @@ angular.module('boggiApp')
 						url: 'api/instagram/' + instagramUsername + '/media'
 					}).then(function(response){
 						$scope.isInstagramSelected = true;
+						if(response.data['userPhoto']){
 						//for(var instagramPost in response.data.userPhoto){
 							$http({
 								method: 'POST',
@@ -70,6 +71,7 @@ angular.module('boggiApp')
 								console.log(res);
 							});
 						//}
+					}
 					}, function(response){
 						console.log(response);
 					});
@@ -79,6 +81,7 @@ angular.module('boggiApp')
 				$scope.instagramData = [];
 				$scope.chart = false;
 				$scope.isInstagramSelected = false;
+				$scope.watsonVrInfos = [];
 		 	};
 
 			$scope.backToTwitterIndex = function(){
